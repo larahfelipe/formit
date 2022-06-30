@@ -5,17 +5,18 @@ import { Controller } from 'react-hook-form';
 import { useStyles } from './styles';
 import type { InputProps, CallbackFunction } from './types';
 
-export const Input = <TData,>({
+export const Input = <T,>({
   control,
   name,
   type = 'text',
+  data,
   placeholder,
   defaultValue,
   mask,
   error,
   disabled,
   ...props
-}: InputProps<TData>) => {
+}: InputProps<T>) => {
   const { classes } = useStyles();
 
   const handleChange = (cb: CallbackFunction) => {
@@ -32,20 +33,34 @@ export const Input = <TData,>({
         name={name}
         defaultValue={defaultValue}
         render={({ field: { value = '', onChange, onBlur } }) => (
-          <input
-            className={classes.Input}
-            type={type}
-            value={value as string}
-            onBlur={handleChange(onBlur)}
-            onChange={handleChange(onChange)}
-            placeholder={placeholder}
-            style={{
-              borderColor: error && 'red',
-              opacity: disabled ? 0.5 : 1
-            }}
-            disabled={disabled}
-            {...props}
-          />
+          <>
+            {type === 'select' && data?.length && (
+              <datalist id={name}>
+                {data.map((item) => (
+                  <option key={item.label} value={item.value}>
+                    {item.value}
+                  </option>
+                ))}
+              </datalist>
+            )}
+
+            <input
+              className={classes.Input}
+              type={type}
+              list={type === 'select' ? name : undefined}
+              placeholder={placeholder}
+              value={value as string}
+              onBlur={handleChange(onBlur)}
+              onChange={handleChange(onChange)}
+              disabled={disabled}
+              style={{
+                borderColor: error && 'red',
+                opacity: disabled ? 0.5 : 1,
+                cursor: disabled ? 'not-allowed' : 'inherit'
+              }}
+              {...props}
+            />
+          </>
         )}
       />
       {error && (

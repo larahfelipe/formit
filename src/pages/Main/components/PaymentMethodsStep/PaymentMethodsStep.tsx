@@ -1,8 +1,8 @@
 import * as M from '@mantine/core';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { SelectInput, Input } from '@/components';
-import { BRAZILIAN_BANKS } from '@/data/BrazilianBanks';
+import { Input } from '@/components';
+import { BRAZILIAN_BANKS, ACCOUNT_TYPES } from '@/data';
 import { PaymentMethods as PaymentMethodsData, useUserStore } from '@/store';
 
 import { StepComponentProps, Steps, FormNames } from '../../types';
@@ -36,11 +36,23 @@ export const PaymentMethodsStep = ({ onChangeStep }: StepComponentProps) => {
     >
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">Banco</M.Text>
-        <SelectInput
+        <Input
+          type="select"
           control={control}
           name="bankName"
-          optionsData={BRAZILIAN_BANKS}
+          data={BRAZILIAN_BANKS}
           error={errors.bankName && errors.bankName.message}
+        />
+      </div>
+
+      <div className={classes.InputWrapper}>
+        <M.Text mb="8px">Tipo de conta</M.Text>
+        <Input
+          type="select"
+          control={control}
+          name="accountType"
+          data={ACCOUNT_TYPES}
+          error={errors.accountType && errors.accountType.message}
         />
       </div>
 

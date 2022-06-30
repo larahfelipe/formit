@@ -23,6 +23,7 @@ export type AddressStep = {
 
 export type PaymentMethods = {
   bankName: string;
+  accountType: string;
   agency: string;
   agencyDigit?: string;
   account: string;

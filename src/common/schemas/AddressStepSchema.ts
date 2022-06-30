@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 
 import { VALIDATIONS } from '@/common';
+import { BRAZILIAN_STATES } from '@/data';
 
 export const AddressStepSchema = yup.object().shape({
   zipCode: yup
@@ -36,6 +37,17 @@ export const AddressStepSchema = yup.object().shape({
   state: yup
     .string()
     .typeError('Estado inválido')
+    .test(
+      'list-includes-selected-option',
+      (params) => {
+        const isNotValid = !BRAZILIAN_STATES.map((item) => item.value).includes(
+          params as any
+        );
+        if (isNotValid) return 'Sigla do estado inválida';
+      },
+      (value) =>
+        BRAZILIAN_STATES.map((item) => item.value).includes(value as any)
+    )
     .min(2, 'Sigla do estado inválida')
     .max(2, 'Sigla do estado inválida')
     .required('Estado é obrigatório')
