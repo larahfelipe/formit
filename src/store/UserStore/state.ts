@@ -23,6 +23,7 @@ export const initialState: UserStoreState = {
   },
   paymentMethodsStep: {
     bankName: '',
+    accountType: '',
     agency: '',
     agencyDigit: '',
     account: '',

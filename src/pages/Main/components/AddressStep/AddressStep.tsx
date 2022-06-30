@@ -1,8 +1,8 @@
 import * as M from '@mantine/core';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { Input, SelectInput } from '@/components';
-import { BRAZILIAN_STATES } from '@/data/BrazilianStates';
+import { Input } from '@/components';
+import { BRAZILIAN_STATES } from '@/data';
 import { AddressStep as AddressStepData, useUserStore } from '@/store';
 
 import { StepComponentProps, Steps, FormNames } from '../../types';
@@ -91,10 +91,11 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
 
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Estado</M.Text>
-          <SelectInput
+          <Input
+            type="select"
             control={control}
             name="state"
-            optionsData={BRAZILIAN_STATES}
+            data={BRAZILIAN_STATES}
             error={errors.state && errors.state.message}
           />
         </div>
