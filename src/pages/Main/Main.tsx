@@ -30,6 +30,7 @@ export const Main = () => {
               color="green"
               size="sm"
               iconSize={42}
+              breakpoint={760}
             >
               {steps.map((step) => (
                 <M.Stepper.Step key={step.title} label={step.title}>

@@ -4,11 +4,11 @@ import * as yup from 'yup';
 
 import { VALIDATIONS } from '@/common';
 
-export const RegistrationStepSchema = yup.object().shape({
+export const EnterpriseStepSchema = yup.object().shape({
   federalDocument: yup
     .string()
-    .typeError('CPF/CNPJ inválido')
-    .min(14, 'CPF deve ter 11 dígitos')
+    .typeError('CNPJ inválido')
+    .min(14, 'CNPJ deve ter 14 dígitos')
     .max(18, 'CNPJ deve ter 14 dígitos')
     .test(
       'is-cpf-or-cnpj',
@@ -19,19 +19,22 @@ export const RegistrationStepSchema = yup.object().shape({
       },
       (value) => validateCNPJ(value || '') || validateCPF(value || '')
     )
-    .required('CPF/CNPJ é obrigatório')
+    .required('CNPJ é obrigatório')
     .trim(),
-  corporateName: yup.string().typeError('Razão social inválida').notRequired(),
-  name: yup
+  corporateName: yup
     .string()
-    .typeError('Nome inválido')
-    .matches(VALIDATIONS.name, 'Nome inválido')
-    .required('Nome é obrigatório')
+    .typeError('Razão social inválida')
+    .required('Razão social é obrigatória')
     .trim(),
-  birthDate: yup
+  businessCategory: yup
     .string()
-    .typeError('Data de nascimento inválida')
-    .required('Data de nascimento é obrigatória')
+    .typeError('Categoria do negócio inválida')
+    .required('Categoria do negócio é obrigatória')
+    .trim(),
+  creationDate: yup
+    .string()
+    .typeError('Data de criação inválida')
+    .required('Data de criação é obrigatória')
     .trim(),
   email: yup
     .string()

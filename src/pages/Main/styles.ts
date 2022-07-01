@@ -10,14 +10,17 @@ export const useStyles = createStyles((theme) => ({
     alignItems: 'center'
   },
   CardWrapper: {
-    width: '40%',
+    width: '45%',
     height: '90%',
 
-    '@media (max-width: 1170px)': {
+    '@media (max-width: 1525px)': {
       width: '60%'
     },
-    '@media (max-width: 780px)': {
+    '@media (max-width: 1145px)': {
       width: '80%'
+    },
+    '@media (max-width: 860px)': {
+      width: '90%'
     },
     '@media (max-width: 585px)': {
       width: '100%',
@@ -30,7 +33,24 @@ export const useStyles = createStyles((theme) => ({
 
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+
+    '@keyframes popup': {
+      '0%': {
+        opacity: 0,
+        transform: 'scale(0.85)'
+      },
+      '100%': {
+        opacity: 1,
+        transform: 'scale(1)'
+      }
+    },
+
+    animation: 'popup 0.3s ease-in-out',
+
+    '@media (max-width: 760px)': {
+      overflowY: 'auto'
+    }
   },
   CardHeader: {
     display: 'flex',
@@ -44,11 +64,15 @@ export const useStyles = createStyles((theme) => ({
     padding: '0 2rem'
   },
   CardContent: {
-    marginTop: '3rem'
+    marginTop: '-0.5rem'
   },
   CardFooter: {
     padding: '0 2rem',
-    marginBottom: '1rem'
+    marginBottom: '1rem',
+
+    '@media (max-width: 760px)': {
+      marginTop: '3rem'
+    }
   },
   ButtonsWrapper: {
     display: 'flex',

@@ -8,15 +8,20 @@ export const setActiveStep =
   (payload) =>
     set({ activeStep: payload });
 
-export const setRegistration =
-  (set: SetState): UserStoreActions['setRegistrationStep'] =>
+export const setEnterprise =
+  (set: SetState): UserStoreActions['setEnterpriseStep'] =>
   (payload) =>
-    set({ registrationStep: payload });
+    set({ enterpriseStep: payload });
 
 export const setAddress =
   (set: SetState): UserStoreActions['setAddressStep'] =>
   (payload) =>
     set({ addressStep: payload });
+
+export const setProprietary =
+  (set: SetState): UserStoreActions['setProprietaryStep'] =>
+  (payload) =>
+    set({ proprietaryStep: payload });
 
 export const setPaymentMethods =
   (set: SetState): UserStoreActions['setPaymentMethodsStep'] =>

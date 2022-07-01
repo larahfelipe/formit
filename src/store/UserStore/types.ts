@@ -2,11 +2,11 @@ import type { SetState as ZustandSetState } from 'zustand';
 
 import { Steps } from '@/pages/Main/types';
 
-export type RegistrationStep = {
+export type EnterpriseStep = {
   federalDocument: string;
-  corporateName?: string;
-  name: string;
-  birthDate: string;
+  corporateName: string;
+  businessCategory: string;
+  creationDate: string;
   email: string;
   phone: string;
 };
@@ -21,6 +21,15 @@ export type AddressStep = {
   state: string;
 };
 
+export type ProprietaryStep = {
+  name: string;
+  federalDocument: string;
+  birthDate: string;
+  email: string;
+  phone: string;
+  files: File[];
+};
+
 export type PaymentMethods = {
   bankName: string;
   accountType: string;
@@ -33,15 +42,17 @@ export type PaymentMethods = {
 
 export type UserStoreState = {
   activeStep: Steps;
-  registrationStep: RegistrationStep;
+  enterpriseStep: EnterpriseStep;
   addressStep: AddressStep;
+  proprietaryStep: ProprietaryStep;
   paymentMethodsStep: PaymentMethods;
 };
 
 export type UserStoreActions = {
   setActiveStep: (payload: Steps) => void;
-  setRegistrationStep: (payload: RegistrationStep) => void;
+  setEnterpriseStep: (payload: EnterpriseStep) => void;
   setAddressStep: (payload: AddressStep) => void;
+  setProprietaryStep: (payload: ProprietaryStep) => void;
   setPaymentMethodsStep: (payload: PaymentMethods) => void;
 };
 

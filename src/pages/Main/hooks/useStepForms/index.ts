@@ -3,24 +3,31 @@ import { useForm } from 'react-hook-form';
 
 import {
   AddressStepSchema,
+  EnterpriseStepSchema,
   PaymentMethodsStepSchema,
-  RegistrationStepSchema
+  ProprietaryStepSchema
 } from '@/common';
 import { useUserStore } from '@/store';
 
 export const useStepForms = () => {
-  const registrationStep = useUserStore((state) => state.registrationStep);
+  const enterpriseStep = useUserStore((state) => state.enterpriseStep);
   const addressStep = useUserStore((state) => state.addressStep);
+  const proprietaryStep = useUserStore((state) => state.proprietaryStep);
   const paymentMethodsStep = useUserStore((state) => state.paymentMethodsStep);
 
-  const registrationStepMethods = useForm({
-    resolver: yupResolver(RegistrationStepSchema),
-    defaultValues: { ...registrationStep },
+  const enterpriseStepMethods = useForm({
+    resolver: yupResolver(EnterpriseStepSchema),
+    defaultValues: { ...enterpriseStep },
     mode: 'onBlur'
   });
   const addressStepMethods = useForm({
     resolver: yupResolver(AddressStepSchema),
     defaultValues: { ...addressStep },
+    mode: 'onBlur'
+  });
+  const proprietaryStepMethods = useForm({
+    resolver: yupResolver(ProprietaryStepSchema),
+    defaultValues: { ...proprietaryStep },
     mode: 'onBlur'
   });
   const paymentMethodsStepMethods = useForm({
@@ -30,8 +37,9 @@ export const useStepForms = () => {
   });
 
   return {
-    registrationStepMethods,
+    enterpriseStepMethods,
     addressStepMethods,
+    proprietaryStepMethods,
     paymentMethodsStepMethods
   };
 };

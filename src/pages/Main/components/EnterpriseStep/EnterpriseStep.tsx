@@ -1,84 +1,74 @@
 import * as M from '@mantine/core';
-import { clear } from '@nafuzi/brazilian-masks';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { CPF_MAX_LENGTH, MAX_DATE_RANGE } from '@/common';
+import { MIN_DATE_RANGE, MAX_DATE_RANGE } from '@/common';
 import { Input } from '@/components';
-import {
-  RegistrationStep as RegistrationStepData,
-  useUserStore
-} from '@/store';
+import { EnterpriseStep as EnterpriseStepData, useUserStore } from '@/store';
 
 import { StepComponentProps, Steps, FormNames } from '../../types';
 import { useStyles } from './styles';
 
-export const RegistrationStep = ({ onChangeStep }: StepComponentProps) => {
+export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
 
-  const setRegistrationStep = useUserStore(
-    (state) => state.setRegistrationStep
-  );
+  const setEnterpriseStep = useUserStore((state) => state.setEnterpriseStep);
 
   const {
     control,
-    getValues,
     handleSubmit,
     formState: { errors }
-  } = useFormContext<RegistrationStepData>();
+  } = useFormContext<EnterpriseStepData>();
 
-  const currentFederalDocumentValue = clear(getValues('federalDocument'));
-
-  const handleRegistrationSubmit: SubmitHandler<RegistrationStepData> = (
+  const handleEnterpriseSubmit: SubmitHandler<EnterpriseStepData> = (
     formData
   ) => {
-    setRegistrationStep(formData);
+    setEnterpriseStep(formData);
     onChangeStep(Steps.SECOND);
   };
 
   return (
     <form
-      id={FormNames.REGISTRATION_STEP}
-      onSubmit={handleSubmit(handleRegistrationSubmit)}
+      id={FormNames.ENTERPRISE_STEP}
+      onSubmit={handleSubmit(handleEnterpriseSubmit)}
       className={classes.Wrapper}
     >
       <div className={classes.InputWrapper}>
-        <M.Text mb="8px">CPF/CNPJ</M.Text>
+        <M.Text mb="8px">CNPJ</M.Text>
         <Input
           control={control}
           name="federalDocument"
-          mask="cpfOrCnpj"
+          mask="cnpj"
           error={errors.federalDocument && errors.federalDocument.message}
         />
       </div>
 
       <div className={classes.InputWrapper}>
-        <M.Text mb="8px">Razão social</M.Text>
+        <M.Text mb="8px">Razão social da empresa</M.Text>
         <Input
           control={control}
           name="corporateName"
-          disabled={currentFederalDocumentValue.length <= CPF_MAX_LENGTH}
           error={errors.corporateName && errors.corporateName.message}
         />
       </div>
 
       <div className={classes.InputWrapper}>
-        <M.Text mb="8px">Nome completo</M.Text>
+        <M.Text mb="8px">Categoria do negócio</M.Text>
         <Input
           control={control}
-          name="name"
-          error={errors.name && errors.name.message}
+          name="businessCategory"
+          error={errors.businessCategory && errors.businessCategory.message}
         />
       </div>
 
       <div className={classes.InputWrapper}>
-        <M.Text mb="8px">Data de nascimento</M.Text>
+        <M.Text mb="8px">Data de criação</M.Text>
         <Input
           control={control}
           type="date"
-          min="1900-01-01"
+          min={MIN_DATE_RANGE}
           max={MAX_DATE_RANGE}
-          name="birthDate"
-          error={errors.birthDate && errors.birthDate.message}
+          name="creationDate"
+          error={errors.creationDate && errors.creationDate.message}
         />
       </div>
 
@@ -86,7 +76,6 @@ export const RegistrationStep = ({ onChangeStep }: StepComponentProps) => {
         <M.Text mb="8px">E-mail</M.Text>
         <Input
           control={control}
-          type="email"
           name="email"
           error={errors.email && errors.email.message}
         />

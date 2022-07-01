@@ -1,12 +1,14 @@
 export enum Steps {
   FIRST,
   SECOND,
-  THIRD
+  THIRD,
+  FOURTH
 }
 
 export enum FormNames {
-  REGISTRATION_STEP = 'registrationStep',
+  ENTERPRISE_STEP = 'enterpriseStep',
   ADDRESS_STEP = 'addressStep',
+  PROPRIETARY_STEP = 'proprietaryStep',
   PAYMENT_METHODS_STEP = 'paymentMethodsStep'
 }
 
