@@ -4,11 +4,11 @@ import type { UserStoreState } from './types';
 
 export const initialState: UserStoreState = {
   activeStep: Steps.FIRST,
-  registrationStep: {
+  enterpriseStep: {
     federalDocument: '',
     corporateName: '',
-    name: '',
-    birthDate: '',
+    businessCategory: '',
+    creationDate: '',
     email: '',
     phone: ''
   },
@@ -20,6 +20,14 @@ export const initialState: UserStoreState = {
     district: '',
     city: '',
     state: ''
+  },
+  proprietaryStep: {
+    federalDocument: '',
+    name: '',
+    birthDate: '',
+    email: '',
+    phone: '',
+    files: [] as File[]
   },
   paymentMethodsStep: {
     bankName: '',

@@ -2,27 +2,29 @@ import { FormProvider } from 'react-hook-form';
 
 import {
   AddressStep,
+  EnterpriseStep,
   PaymentMethodsStep,
-  RegistrationStep
+  ProprietaryStep
 } from '../../components';
 import { Step, FormNames } from '../../types';
 import { useStepForms } from '../useStepForms';
 
 export const useSteps = () => {
   const {
-    registrationStepMethods,
+    enterpriseStepMethods,
     addressStepMethods,
+    proprietaryStepMethods,
     paymentMethodsStepMethods
   } = useStepForms();
 
   const steps: Step[] = [
     {
-      title: 'Cadastro',
-      formName: FormNames.REGISTRATION_STEP,
-      formDataIsValid: registrationStepMethods.formState.isValid,
+      title: 'Estabelecimento',
+      formName: FormNames.ENTERPRISE_STEP,
+      formDataIsValid: enterpriseStepMethods.formState.isValid,
       Element: ({ onChangeStep }) => (
-        <FormProvider {...registrationStepMethods}>
-          <RegistrationStep onChangeStep={onChangeStep} />
+        <FormProvider {...enterpriseStepMethods}>
+          <EnterpriseStep onChangeStep={onChangeStep} />
         </FormProvider>
       )
     },
@@ -33,6 +35,16 @@ export const useSteps = () => {
       Element: ({ onChangeStep }) => (
         <FormProvider {...addressStepMethods}>
           <AddressStep onChangeStep={onChangeStep} />
+        </FormProvider>
+      )
+    },
+    {
+      title: 'Proprietário',
+      formName: FormNames.PROPRIETARY_STEP,
+      formDataIsValid: proprietaryStepMethods.formState.isValid,
+      Element: ({ onChangeStep }) => (
+        <FormProvider {...proprietaryStepMethods}>
+          <ProprietaryStep onChangeStep={onChangeStep} />
         </FormProvider>
       )
     },

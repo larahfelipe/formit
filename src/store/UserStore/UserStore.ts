@@ -5,9 +5,10 @@ import config from '@/config';
 
 import {
   setActiveStep,
-  setRegistration,
   setAddress,
-  setPaymentMethods
+  setEnterprise,
+  setPaymentMethods,
+  setProprietary
 } from './actions';
 import { initialState } from './state';
 import type { UserStore } from './types';
@@ -16,8 +17,9 @@ const userStoreWithPersist = persist<UserStore>(
   (set) => ({
     ...initialState,
     setActiveStep: setActiveStep(set),
-    setRegistrationStep: setRegistration(set),
+    setEnterpriseStep: setEnterprise(set),
     setAddressStep: setAddress(set),
+    setProprietaryStep: setProprietary(set),
     setPaymentMethodsStep: setPaymentMethods(set)
   }),
   {
