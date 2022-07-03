@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx --max-warnings=0",
+    "lint:fix": "eslint src --ext ts,tsx --max-warnings=0 --fix",
+    "prettier": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "prettier:fix": "prettier --check \"src/**/*.{ts,tsx}\" --write",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.3",
