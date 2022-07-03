@@ -41,5 +41,7 @@ export const ProprietaryStepSchema = yup.object().shape({
     .typeError('Telefone inválido')
     .matches(VALIDATIONS.phone, 'Telefone inválido')
     .required('Telefone é obrigatório')
-    .trim()
+    .trim(),
+  // filesStorageRef: yup.array().min(1, 'Documento é obrigatório')
+  filesStorageRef: yup.array().notRequired()
 });

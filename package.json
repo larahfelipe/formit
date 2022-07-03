@@ -10,10 +10,10 @@
   "dependencies": {
     "@hookform/resolvers": "^2.9.3",
     "@mantine/core": "^4.2.11",
-    "@mantine/dropzone": "^4.2.11",
     "@mantine/hooks": "^4.2.11",
     "@nafuzi/brazilian-masks": "^1.8.3",
     "axios": "^0.27.2",
+    "firebase": "^9.8.4",
     "preact": "^10.5.15",
     "react-hook-form": "^7.33.0",
     "validations-br": "^1.2.0",

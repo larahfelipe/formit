@@ -7,13 +7,23 @@ export const useStyles = createStyles({
   InputWrapper: {
     marginTop: '1.5rem'
   },
-  DropzoneLabelWrapper: {
+  FileInputLabelWrapper: {
     display: 'flex',
     justifyContent: 'space-between'
   },
-  DropzoneFieldWrapper: {
+  FileInputFieldWrapper: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'space-between',
+
+    '& > input': {
+      alignSelf: 'center'
+    }
+  },
+  RequiredFilesList: {
+    marginTop: '8px',
+
+    '> li': {
+      fontWeight: 'bold'
+    }
   }
 });
