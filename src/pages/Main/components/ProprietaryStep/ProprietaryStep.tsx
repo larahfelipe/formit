@@ -1,5 +1,5 @@
 import * as M from '@mantine/core';
-import { Dropzone, MIME_TYPES, DropzoneStatus } from '@mantine/dropzone';
+import { clear } from '@nafuzi/brazilian-masks';
 import { SubmitHandler, useFormContext, Controller } from 'react-hook-form';
 
 import { MIN_DATE_RANGE, MAX_DATE_RANGE, MAX_DATA_SIZE } from '@/common';
@@ -8,9 +8,11 @@ import { ProprietaryStep as ProprietaryStepData, useUserStore } from '@/store';
 
 import { StepComponentProps, Steps, FormNames } from '../../types';
 import { useStyles } from './styles';
+import { useFirebaseStorage } from './useFirebaseStorage';
 
 export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
+  const { handleUploadFile } = useFirebaseStorage();
 
   const {
     control,
@@ -20,7 +22,30 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
 
   const setProprietaryStep = useUserStore((state) => state.setProprietaryStep);
 
-  const handleAddressSubmit: SubmitHandler<ProprietaryStepData> = (
+  const enterpriseFederalDocument = useUserStore(
+    (state) => state.enterpriseStep.federalDocument
+  );
+
+  const handleOnChangeFileInput = async (files: FileList) => {
+    const filesArray = [...files];
+    const sanitizedEnterpriseFederalDocument = clear(enterpriseFederalDocument);
+
+    const result = await Promise.all(
+      filesArray.map((file) =>
+        handleUploadFile(
+          file,
+          `${sanitizedEnterpriseFederalDocument}/${file.name}`
+        )
+      )
+    );
+
+    const proprietaryFilesStorageRef = result.map(
+      (file) => file?.metadata.fullPath
+    );
+    return proprietaryFilesStorageRef;
+  };
+
+  const handleProprietarySubmit: SubmitHandler<ProprietaryStepData> = (
     formData
   ) => {
     setProprietaryStep(formData);
@@ -30,7 +55,7 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
   return (
     <form
       id={FormNames.PROPRIETARY_STEP}
-      onSubmit={handleSubmit(handleAddressSubmit)}
+      onSubmit={handleSubmit(handleProprietarySubmit)}
       className={classes.Wrapper}
     >
       <div className={classes.InputWrapper}>
@@ -84,54 +109,33 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
       </div>
 
       <div className={classes.InputWrapper}>
-        <div className={classes.DropzoneLabelWrapper}>
-          <M.Text>Documentação</M.Text>
-          <M.Text size="xs" mb="8px">
-            Tipos de arquivos aceitos: PDF, JPEG e PNG
-          </M.Text>
+        <M.Text>Envio de documentação</M.Text>
+        <div className={classes.FileInputFieldWrapper}>
+          <M.List size="xs" className={classes.RequiredFilesList}>
+            <M.ListItem>RG ou CNH do sócio da empresa</M.ListItem>
+            <M.ListItem>Cartão CNPJ</M.ListItem>
+            <M.ListItem>Comprovante de endereço</M.ListItem>
+            <M.ListItem>Comprovante de atividade</M.ListItem>
+          </M.List>
+          <Controller
+            control={control}
+            name="filesStorageRef"
+            render={({ field: { value, onChange } }) => (
+              <input
+                multiple
+                type="file"
+                maxLength={MAX_DATA_SIZE}
+                value={value}
+                onChange={async (e: any) =>
+                  onChange(await handleOnChangeFileInput(e.target.files))
+                }
+              />
+            )}
+          />
         </div>
-        <Controller
-          control={control}
-          name="files"
-          render={({ field: { value, onChange } }) => (
-            <Dropzone
-              multiple
-              value={value}
-              onDrop={(file: File) => {
-                const blob = new Blob([file], { type: MIME_TYPES.jpeg });
-                const fileReader = new FileReader();
-                fileReader.onload = (e: any) => {
-                  const result = e.target.result;
-                  const result2 = btoa(result);
-                  onChange(result2);
-                  console.log(result2);
-                };
-                fileReader.readAsDataURL(blob);
-              }}
-              onReject={(file: File) =>
-                console.error('Rejected file(s): ', file)
-              }
-              maxSize={MAX_DATA_SIZE}
-              accept={[MIME_TYPES.pdf, MIME_TYPES.jpeg, MIME_TYPES.png]}
-            >
-              {(status: DropzoneStatus) => (
-                <div className={classes.DropzoneFieldWrapper}>
-                  {status.accepted ? (
-                    <M.Text>Arquivos enviados</M.Text>
-                  ) : (
-                    <M.Text>Selecionar arquivos</M.Text>
-                  )}
-                </div>
-              )}
-            </Dropzone>
-          )}
-        />
-        <M.List size="xs">
-          <M.ListItem>RG ou CNH do sócio da empresa</M.ListItem>
-          <M.ListItem>Cartão CNPJ</M.ListItem>
-          <M.ListItem>Comprovante de endereço</M.ListItem>
-          <M.ListItem>Comprovante de atividade</M.ListItem>
-        </M.List>
+        <M.Text size="xs" align="right">
+          Formatos aceitos: PDF, JPEG e PNG
+        </M.Text>
       </div>
     </form>
   );

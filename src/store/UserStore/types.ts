@@ -27,7 +27,7 @@ export type ProprietaryStep = {
   birthDate: string;
   email: string;
   phone: string;
-  files: File[];
+  filesStorageRef: string[];
 };
 
 export type PaymentMethods = {

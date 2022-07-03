@@ -27,7 +27,7 @@ export const initialState: UserStoreState = {
     birthDate: '',
     email: '',
     phone: '',
-    files: [] as File[]
+    filesStorageRef: []
   },
   paymentMethodsStep: {
     bankName: '',
