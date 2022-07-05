@@ -13,6 +13,7 @@ export interface InputProps<T> {
   name: Path<T>;
   type?: InputType;
   data?: SelectData[];
+  verboseSelectionValue?: boolean;
   placeholder?: string;
   defaultValue?: PathValue<T, Path<T>>;
   mask?: MasksName;

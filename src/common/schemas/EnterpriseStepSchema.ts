@@ -3,6 +3,7 @@ import { validateCNPJ, validateCPF } from 'validations-br';
 import * as yup from 'yup';
 
 import { VALIDATIONS } from '@/common';
+import { MERCHANT_CATEGORY_CODES } from '@/data';
 
 export const EnterpriseStepSchema = yup.object().shape({
   federalDocument: yup
@@ -29,6 +30,19 @@ export const EnterpriseStepSchema = yup.object().shape({
   businessCategory: yup
     .string()
     .typeError('Categoria do negócio inválida')
+    .test(
+      'list-includes-selected-option',
+      (params) => {
+        const isValid = MERCHANT_CATEGORY_CODES.map(
+          (item) => item.value
+        ).includes(params as any);
+        if (isValid) return 'Categoria do negócio inválida';
+      },
+      (value) =>
+        MERCHANT_CATEGORY_CODES.map(
+          (item) => `${item.value} - ${item.label}`
+        ).includes(value as any)
+    )
     .required('Categoria do negócio é obrigatória')
     .trim(),
   creationDate: yup

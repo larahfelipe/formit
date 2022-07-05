@@ -10,6 +10,7 @@ export const Input = <T,>({
   name,
   type = 'text',
   data,
+  verboseSelectionValue,
   placeholder,
   defaultValue,
   mask,
@@ -37,8 +38,15 @@ export const Input = <T,>({
             {type === 'select' && data?.length && (
               <datalist id={name}>
                 {data.map((item) => (
-                  <option key={item.label} value={item.value}>
-                    {item.value}
+                  <option
+                    key={item.value}
+                    value={
+                      verboseSelectionValue
+                        ? `${item.value} - ${item.label}`
+                        : item.value
+                    }
+                  >
+                    {item.label}
                   </option>
                 ))}
               </datalist>
