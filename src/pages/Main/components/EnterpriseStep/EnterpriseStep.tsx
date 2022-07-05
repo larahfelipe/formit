@@ -3,6 +3,7 @@ import { SubmitHandler, useFormContext } from 'react-hook-form';
 
 import { MIN_DATE_RANGE, MAX_DATE_RANGE } from '@/common';
 import { Input } from '@/components';
+import { MERCHANT_CATEGORY_CODES } from '@/data';
 import { EnterpriseStep as EnterpriseStepData, useUserStore } from '@/store';
 
 import { StepComponentProps, Steps, FormNames } from '../../types';
@@ -54,6 +55,9 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">Categoria do negócio</M.Text>
         <Input
+          verboseSelectionValue
+          type="select"
+          data={MERCHANT_CATEGORY_CODES}
           control={control}
           name="businessCategory"
           error={errors.businessCategory && errors.businessCategory.message}
