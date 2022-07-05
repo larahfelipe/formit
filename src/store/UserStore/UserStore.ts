@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 import config from '@/config';
 
 import {
+  resetStore,
   setActiveStep,
   setAddress,
   setEnterprise,
@@ -16,6 +17,7 @@ import type { UserStore } from './types';
 const userStoreWithPersist = persist<UserStore>(
   (set) => ({
     ...initialState,
+    resetStore: resetStore(set),
     setActiveStep: setActiveStep(set),
     setEnterpriseStep: setEnterprise(set),
     setAddressStep: setAddress(set),
