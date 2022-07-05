@@ -78,5 +78,9 @@ export const useStyles = createStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignSelf: 'flex-end'
+  },
+  ModalWrapper: {
+    position: 'absolute',
+    backgroundColor: 'red'
   }
 }));

@@ -49,6 +49,7 @@ export type UserStoreState = {
 };
 
 export type UserStoreActions = {
+  resetStore: () => void;
   setActiveStep: (payload: Steps) => void;
   setEnterpriseStep: (payload: EnterpriseStep) => void;
   setAddressStep: (payload: AddressStep) => void;

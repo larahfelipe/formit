@@ -5,17 +5,21 @@ import { Input } from '@/components';
 import { BRAZILIAN_BANKS, ACCOUNT_TYPES } from '@/data';
 import { PaymentMethods as PaymentMethodsData, useUserStore } from '@/store';
 
+import { useApi } from '../../hooks';
 import { StepComponentProps, Steps, FormNames } from '../../types';
 import { useStyles } from './styles';
 
 export const PaymentMethodsStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
+  const { handleSendUserData } = useApi();
 
   const {
     control,
     handleSubmit,
     formState: { errors }
   } = useFormContext<PaymentMethodsData>();
+
+  const paymentMethodsStep = useUserStore((state) => state.paymentMethodsStep);
 
   const setPaymentMethodsStep = useUserStore(
     (state) => state.setPaymentMethodsStep
@@ -26,6 +30,9 @@ export const PaymentMethodsStep = ({ onChangeStep }: StepComponentProps) => {
   ) => {
     setPaymentMethodsStep(formData);
     onChangeStep(Steps.FIRST);
+    console.log(paymentMethodsStep);
+    setTimeout(() => console.log(paymentMethodsStep), 10000);
+    // handleSendUserData();
   };
 
   return (
