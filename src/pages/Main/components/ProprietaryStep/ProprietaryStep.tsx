@@ -6,9 +6,9 @@ import { MIN_DATE_RANGE, MAX_DATE_RANGE, MAX_DATA_SIZE } from '@/common';
 import { Input } from '@/components';
 import { ProprietaryStep as ProprietaryStepData, useUserStore } from '@/store';
 
+import { useFirebaseStorage } from '../../hooks';
 import { StepComponentProps, Steps, FormNames } from '../../types';
 import { useStyles } from './styles';
-import { useFirebaseStorage } from './useFirebaseStorage';
 
 export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
