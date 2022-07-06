@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
   Wrapper: {
-    width: '80%',
+    width: '35%',
     height: '12rem',
 
     display: 'flex',
@@ -24,7 +24,21 @@ export const useStyles = createStyles((theme) => ({
       }
     },
 
-    animation: 'popup 0.3s ease-in-out'
+    animation: 'popup 0.3s ease-in-out',
+
+    '@media (max-width: 1310px)': {
+      width: '50%'
+    },
+    '@media (max-width: 980px)': {
+      width: '70%'
+    },
+    '@media (max-width: 700px)': {
+      width: '90%'
+    },
+    '@media (max-width: 430px)': {
+      width: '95%',
+      height: '14rem'
+    }
   },
   Header: {
     width: '100%',
@@ -49,7 +63,7 @@ export const useStyles = createStyles((theme) => ({
 
     textAlign: 'center'
   },
-  ButtonsWrapper: {
+  Footer: {
     width: '100%',
 
     display: 'flex',

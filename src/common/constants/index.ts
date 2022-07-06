@@ -8,7 +8,7 @@ export const MIN_DATE_RANGE = '1900-01-01';
 
 export const MAX_DATE_RANGE = new Date().toISOString().split('T')[0];
 
-export const DEFAULT_MS_DELAY = 3500; // 3.5 seconds
+export const DEFAULT_MS_DELAY = 3000; // 3 seconds
 
 export const IS_FIRST_STEP = (currentStep: Steps) =>
   currentStep === Steps.FIRST;

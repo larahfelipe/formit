@@ -24,7 +24,11 @@ export const Main = () => {
 
   const handleOnConfirmSend = () => {
     handleSendUserData();
-    setTimeout(() => setActiveStep(Steps.FIRST), DEFAULT_MS_DELAY);
+
+    setTimeout(() => {
+      setActiveStep(Steps.FIRST);
+      window.location.reload();
+    }, DEFAULT_MS_DELAY);
   };
 
   return (

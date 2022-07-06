@@ -22,7 +22,7 @@ export const SendConfirmationDialog = ({
         </p>
       </div>
 
-      <div className={classes.ButtonsWrapper}>
+      <div className={classes.Footer}>
         <Button variant="subtle" onClick={onCancel}>
           Cancelar
         </Button>
