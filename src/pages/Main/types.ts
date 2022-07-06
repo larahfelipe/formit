@@ -2,7 +2,8 @@ export enum Steps {
   FIRST,
   SECOND,
   THIRD,
-  FOURTH
+  FOURTH,
+  FIFTH
 }
 
 export enum FormNames {

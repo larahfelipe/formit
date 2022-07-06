@@ -59,13 +59,6 @@ export const useStyles = createStyles((theme) => ({
 
     marginTop: theme.spacing.lg
   },
-  StepperWrapper: {
-    width: '100%',
-    padding: '0 2rem'
-  },
-  CardContent: {
-    marginTop: '-0.5rem'
-  },
   CardFooter: {
     padding: '0 2rem',
     marginBottom: '1rem',
@@ -78,9 +71,5 @@ export const useStyles = createStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignSelf: 'flex-end'
-  },
-  ModalWrapper: {
-    position: 'absolute',
-    backgroundColor: 'red'
   }
 }));
