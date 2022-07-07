@@ -1,4 +1,4 @@
-import preact from '@preact/preset-vite';
+import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
@@ -10,5 +10,5 @@ export default defineConfig({
   resolve: {
     alias: [{ find: '@', replacement: path.join(__dirname, 'src') }]
   },
-  plugins: [preact()]
+  plugins: [react()]
 });
