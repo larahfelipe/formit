@@ -1,3 +1,5 @@
+import type { ChangeEvent } from 'react';
+
 import * as M from '@mantine/core';
 import masks from '@nafuzi/brazilian-masks';
 import { Controller } from 'react-hook-form';
@@ -21,7 +23,7 @@ export const Input = <T,>({
   const { classes } = useStyles();
 
   const handleChange = (cb: CallbackFunction) => {
-    return (event: JSX.TargetedEvent) => {
+    return (event: ChangeEvent) => {
       const value = (event.target as HTMLInputElement).value;
       mask ? cb(masks[mask](value)) : cb(value);
     };
