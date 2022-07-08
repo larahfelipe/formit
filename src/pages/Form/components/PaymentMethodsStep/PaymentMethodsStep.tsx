@@ -12,11 +12,7 @@ import { useStyles } from './styles';
 export const PaymentMethodsStep = () => {
   const { classes } = useStyles();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = useFormContext<PaymentMethodsData>();
+  const { control, handleSubmit } = useFormContext<PaymentMethodsData>();
 
   const navigate = useNavigate();
 
@@ -46,7 +42,6 @@ export const PaymentMethodsStep = () => {
           control={control}
           name="bankName"
           data={BRAZILIAN_BANKS}
-          error={errors.bankName && errors.bankName.message}
         />
       </div>
 
@@ -57,48 +52,30 @@ export const PaymentMethodsStep = () => {
           control={control}
           name="accountType"
           data={ACCOUNT_TYPES}
-          error={errors.accountType && errors.accountType.message}
         />
       </div>
 
       <div className={classes.InlineFieldsWrapper}>
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Agência</M.Text>
-          <Input
-            control={control}
-            name="agency"
-            error={errors.agency && errors.agency.message}
-          />
+          <Input control={control} name="agency" />
         </div>
 
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Dígito da agência</M.Text>
-          <Input
-            control={control}
-            name="agencyDigit"
-            placeholder="Opcional"
-            error={errors.agencyDigit && errors.agencyDigit.message}
-          />
+          <Input control={control} name="agencyDigit" placeholder="Opcional" />
         </div>
       </div>
 
       <div className={classes.InlineFieldsWrapper}>
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Conta</M.Text>
-          <Input
-            control={control}
-            name="account"
-            error={errors.account && errors.account.message}
-          />
+          <Input control={control} name="account" />
         </div>
 
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Dígito da conta</M.Text>
-          <Input
-            control={control}
-            name="accountDigit"
-            error={errors.accountDigit && errors.accountDigit.message}
-          />
+          <Input control={control} name="accountDigit" />
         </div>
       </div>
 
@@ -108,10 +85,6 @@ export const PaymentMethodsStep = () => {
           control={control}
           name="accountHolderFederalDocument"
           mask="cpfOrCnpj"
-          error={
-            errors.accountHolderFederalDocument &&
-            errors.accountHolderFederalDocument.message
-          }
         />
       </div>
     </form>

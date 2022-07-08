@@ -18,22 +18,22 @@ export const useStepForms = () => {
   const enterpriseStepMethods = useForm({
     resolver: yupResolver(EnterpriseStepSchema),
     defaultValues: { ...enterpriseStep },
-    mode: 'onBlur'
+    mode: 'onChange'
   });
   const addressStepMethods = useForm({
     resolver: yupResolver(AddressStepSchema),
     defaultValues: { ...addressStep },
-    mode: 'onBlur'
+    mode: 'onChange'
   });
   const proprietaryStepMethods = useForm({
     resolver: yupResolver(ProprietaryStepSchema),
     defaultValues: { ...proprietaryStep },
-    mode: 'onBlur'
+    mode: 'onChange'
   });
   const paymentMethodsStepMethods = useForm({
     resolver: yupResolver(PaymentMethodsStepSchema),
     defaultValues: { ...paymentMethodsStep },
-    mode: 'onBlur'
+    mode: 'onChange'
   });
 
   return {

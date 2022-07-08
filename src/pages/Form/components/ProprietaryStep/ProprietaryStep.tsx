@@ -17,11 +17,7 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
   const { handleUploadFile } = useFirebaseStorage();
   const { getValue } = useSanitizedStoreData();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = useFormContext<ProprietaryStepData>();
+  const { control, handleSubmit } = useFormContext<ProprietaryStepData>();
 
   const setProprietaryStep = useUserStore((state) => state.setProprietaryStep);
 
@@ -62,21 +58,12 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
     >
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">Nome completo</M.Text>
-        <Input
-          control={control}
-          name="name"
-          error={errors.name && errors.name.message}
-        />
+        <Input control={control} name="name" />
       </div>
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">CPF</M.Text>
-        <Input
-          control={control}
-          name="federalDocument"
-          mask="cpf"
-          error={errors.federalDocument && errors.federalDocument.message}
-        />
+        <Input control={control} name="federalDocument" mask="cpf" />
       </div>
 
       <div className={classes.InputWrapper}>
@@ -87,27 +74,17 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
           min={MIN_DATE_RANGE}
           max={MAX_DATE_RANGE}
           name="birthDate"
-          error={errors.birthDate && errors.birthDate.message}
         />
       </div>
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">E-mail</M.Text>
-        <Input
-          control={control}
-          name="email"
-          error={errors.email && errors.email.message}
-        />
+        <Input control={control} name="email" />
       </div>
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">Telefone</M.Text>
-        <Input
-          control={control}
-          name="phone"
-          mask="phone"
-          error={errors.phone && errors.phone.message}
-        />
+        <Input control={control} name="phone" mask="phone" />
       </div>
 
       <div className={classes.InputWrapper}>
