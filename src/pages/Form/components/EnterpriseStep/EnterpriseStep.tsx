@@ -1,24 +1,26 @@
+import { useEffect } from 'react';
+
 import * as M from '@mantine/core';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
+import { validateCNPJ } from 'validations-br';
 
 import { MIN_DATE_RANGE, MAX_DATE_RANGE } from '@/common';
 import { Input } from '@/components';
 import { MERCHANT_CATEGORY_CODES } from '@/data';
 import { EnterpriseStep as EnterpriseStepData, useUserStore } from '@/store';
 
+import { useBrasilApi } from '../../hooks';
 import { StepComponentProps, Steps, FormNames } from '../../types';
 import { useStyles } from './styles';
 
 export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
+  const { getEnterpriseByCnpj, enterpriseData } = useBrasilApi();
 
   const setEnterpriseStep = useUserStore((state) => state.setEnterpriseStep);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors }
-  } = useFormContext<EnterpriseStepData>();
+  const { control, handleSubmit, watch, setValue } =
+    useFormContext<EnterpriseStepData>();
 
   const handleEnterpriseSubmit: SubmitHandler<EnterpriseStepData> = (
     formData
@@ -26,6 +28,21 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
     setEnterpriseStep(formData);
     onChangeStep(Steps.SECOND);
   };
+
+  const enterpriseFederalDocument = watch('federalDocument');
+
+  useEffect(() => {
+    const isValidCNPJ = validateCNPJ(enterpriseFederalDocument);
+
+    if (isValidCNPJ) getEnterpriseByCnpj(enterpriseFederalDocument);
+  }, [enterpriseFederalDocument, getEnterpriseByCnpj]);
+
+  useEffect(() => {
+    if (enterpriseData) {
+      setValue('corporateName', enterpriseData.razao_social);
+      setValue('creationDate', enterpriseData.data_inicio_atividade);
+    }
+  }, [enterpriseData, setValue]);
 
   return (
     <form
@@ -35,12 +52,7 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
     >
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">CNPJ</M.Text>
-        <Input
-          control={control}
-          name="federalDocument"
-          mask="cnpj"
-          error={errors.federalDocument && errors.federalDocument.message}
-        />
+        <Input control={control} name="federalDocument" mask="cnpj" />
       </div>
 
       <div className={classes.InputWrapper}>
@@ -48,7 +60,7 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
         <Input
           control={control}
           name="corporateName"
-          error={errors.corporateName && errors.corporateName.message}
+          disabled={!!enterpriseData.razao_social}
         />
       </div>
 
@@ -60,7 +72,6 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
           data={MERCHANT_CATEGORY_CODES}
           control={control}
           name="businessCategory"
-          error={errors.businessCategory && errors.businessCategory.message}
         />
       </div>
 
@@ -72,27 +83,18 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
           min={MIN_DATE_RANGE}
           max={MAX_DATE_RANGE}
           name="creationDate"
-          error={errors.creationDate && errors.creationDate.message}
+          disabled={!!enterpriseData.data_inicio_atividade}
         />
       </div>
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">E-mail</M.Text>
-        <Input
-          control={control}
-          name="email"
-          error={errors.email && errors.email.message}
-        />
+        <Input control={control} name="email" />
       </div>
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">Telefone</M.Text>
-        <Input
-          control={control}
-          name="phone"
-          mask="phone"
-          error={errors.phone && errors.phone.message}
-        />
+        <Input control={control} name="phone" mask="phone" />
       </div>
     </form>
   );

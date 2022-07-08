@@ -9,14 +9,12 @@ export const EnterpriseStepSchema = yup.object().shape({
   federalDocument: yup
     .string()
     .typeError('CNPJ inválido')
-    .min(14, 'CNPJ deve ter 14 dígitos')
+    .min(18, 'CNPJ deve ter 14 dígitos')
     .max(18, 'CNPJ deve ter 14 dígitos')
     .test(
       'is-cpf-or-cnpj',
       (params) => {
-        if (clear(params?.value || '').length <= 11) return 'CPF inválido';
-
-        return 'CNPJ inválido';
+        if (clear(params?.value || '').length <= 11) return 'CNPJ inválido';
       },
       (value) => validateCNPJ(value || '') || validateCPF(value || '')
     )
