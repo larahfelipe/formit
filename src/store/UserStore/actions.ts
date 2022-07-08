@@ -8,6 +8,11 @@ export const setActiveStep =
   (payload) =>
     set({ activeStep: payload });
 
+export const setFormIsValidated =
+  (set: SetState): UserStoreActions['setFormIsValidated'] =>
+  (payload) =>
+    set({ formIsValidated: payload });
+
 export const setEnterprise =
   (set: SetState): UserStoreActions['setEnterpriseStep'] =>
   (payload) =>

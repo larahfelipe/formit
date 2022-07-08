@@ -52,9 +52,9 @@ export const useSteps = () => {
       title: 'Métodos de pagamento',
       formName: FormNames.PAYMENT_METHODS_STEP,
       formDataIsValid: paymentMethodsStepMethods.formState.isValid,
-      Element: ({ onChangeStep }) => (
+      Element: () => (
         <FormProvider {...paymentMethodsStepMethods}>
-          <PaymentMethodsStep onChangeStep={onChangeStep} />
+          <PaymentMethodsStep />
         </FormProvider>
       )
     }

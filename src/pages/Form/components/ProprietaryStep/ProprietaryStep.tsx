@@ -1,10 +1,12 @@
+import type { ChangeEvent } from 'react';
+
 import * as M from '@mantine/core';
-import { clear } from '@nafuzi/brazilian-masks';
 import { SubmitHandler, useFormContext, Controller } from 'react-hook-form';
 
 import { MIN_DATE_RANGE, MAX_DATE_RANGE, MAX_DATA_SIZE } from '@/common';
 import { Input } from '@/components';
 import { ProprietaryStep as ProprietaryStepData, useUserStore } from '@/store';
+import { useSanitizedStoreData } from '@/utils';
 
 import { useFirebaseStorage } from '../../hooks';
 import { StepComponentProps, Steps, FormNames } from '../../types';
@@ -13,6 +15,7 @@ import { useStyles } from './styles';
 export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
   const { handleUploadFile } = useFirebaseStorage();
+  const { getValue } = useSanitizedStoreData();
 
   const {
     control,
@@ -22,13 +25,12 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
 
   const setProprietaryStep = useUserStore((state) => state.setProprietaryStep);
 
-  const enterpriseFederalDocument = useUserStore(
-    (state) => state.enterpriseStep.federalDocument
-  );
-
   const handleOnChangeFileInput = async (files: FileList) => {
     const filesArray = [...files];
-    const sanitizedEnterpriseFederalDocument = clear(enterpriseFederalDocument);
+    const sanitizedEnterpriseFederalDocument = getValue(
+      'enterprise',
+      'federalDocument'
+    );
 
     const result = await Promise.all(
       filesArray.map((file) =>
@@ -126,7 +128,7 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
                 type="file"
                 maxLength={MAX_DATA_SIZE}
                 value={value}
-                onChange={async (e: any) =>
+                onChange={async (e: ChangeEvent<any>) =>
                   onChange(await handleOnChangeFileInput(e.target.files))
                 }
               />

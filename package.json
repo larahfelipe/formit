@@ -23,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.0",
     "react-hot-toast": "^2.2.0",
+    "react-router-dom": "6",
     "validations-br": "^1.2.0",
     "yup": "^0.32.11",
     "zustand": "^4.0.0-rc.1"

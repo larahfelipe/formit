@@ -1,14 +1,15 @@
 import * as M from '@mantine/core';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { Input } from '@/components';
 import { BRAZILIAN_BANKS, ACCOUNT_TYPES } from '@/data';
 import { PaymentMethods as PaymentMethodsData, useUserStore } from '@/store';
 
-import { StepComponentProps, Steps, FormNames } from '../../types';
+import { FormNames } from '../../types';
 import { useStyles } from './styles';
 
-export const PaymentMethodsStep = ({ onChangeStep }: StepComponentProps) => {
+export const PaymentMethodsStep = () => {
   const { classes } = useStyles();
 
   const {
@@ -17,15 +18,19 @@ export const PaymentMethodsStep = ({ onChangeStep }: StepComponentProps) => {
     formState: { errors }
   } = useFormContext<PaymentMethodsData>();
 
+  const navigate = useNavigate();
+
   const setPaymentMethodsStep = useUserStore(
     (state) => state.setPaymentMethodsStep
   );
+  const setFormIsValidated = useUserStore((state) => state.setFormIsValidated);
 
   const handlePaymentMethodsSubmit: SubmitHandler<PaymentMethodsData> = (
     formData
   ) => {
     setPaymentMethodsStep(formData);
-    onChangeStep(Steps.FIFTH);
+    setFormIsValidated(true);
+    navigate('/confirmation');
   };
 
   return (
