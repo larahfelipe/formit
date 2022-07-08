@@ -1,19 +1,16 @@
 import { clear } from '@nafuzi/brazilian-masks';
-import { toast } from 'react-hot-toast';
 
-// import { api } from '@/services';
 import { useUserStore } from '@/store';
 
 import type { UserData } from './types';
 
-export const useApi = () => {
-  const resetStore = useUserStore((state) => state.resetStore);
+export const useSanitizedStoreData = () => {
   const enterpriseStep = useUserStore((state) => state.enterpriseStep);
   const addressStep = useUserStore((state) => state.addressStep);
   const proprietaryStep = useUserStore((state) => state.proprietaryStep);
   const paymentMethodsStep = useUserStore((state) => state.paymentMethodsStep);
 
-  const handleSendUserData = async () => {
+  const getAll = () => {
     const formattedUserData: UserData = {
       enterprise: {
         ...enterpriseStep,
@@ -37,16 +34,16 @@ export const useApi = () => {
       }
     };
 
-    try {
-      console.log(formattedUserData);
-      // await api.post('/users', formattedUserData);
-      toast.success('Dados enviados com sucesso!');
-      resetStore();
-    } catch (err) {
-      console.error(err);
-      toast.error('Algo deu errado! Tente novamente mais tarde.');
-    }
+    return formattedUserData;
   };
 
-  return { handleSendUserData };
+  const getValue = <T extends keyof UserData, K extends keyof UserData[T]>(
+    from: T,
+    key: K
+  ) => {
+    const value = getAll()[from][key];
+    return value;
+  };
+
+  return { getAll, getValue };
 };

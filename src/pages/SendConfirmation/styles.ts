@@ -2,6 +2,14 @@ import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
   Wrapper: {
+    width: '100vw',
+    height: '100vh',
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  CardWrapper: {
     width: '35%',
     height: '12rem',
 

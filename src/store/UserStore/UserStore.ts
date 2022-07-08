@@ -6,6 +6,7 @@ import config from '@/config';
 import {
   resetStore,
   setActiveStep,
+  setFormIsValidated,
   setAddress,
   setEnterprise,
   setPaymentMethods,
@@ -19,6 +20,7 @@ const userStoreWithPersist = persist<UserStore>(
     ...initialState,
     resetStore: resetStore(set),
     setActiveStep: setActiveStep(set),
+    setFormIsValidated: setFormIsValidated(set),
     setEnterpriseStep: setEnterprise(set),
     setAddressStep: setAddress(set),
     setProprietaryStep: setProprietary(set),

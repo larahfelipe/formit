@@ -1,4 +1,4 @@
-import { Steps } from '@/pages/Main/types';
+import { Steps } from '@/pages/Form/types';
 
 export const CPF_MAX_LENGTH = 11;
 

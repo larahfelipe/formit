@@ -1,9 +1,10 @@
-import { Steps } from '@/pages/Main/types';
+import { Steps } from '@/pages/Form/types';
 
 import type { UserStoreState } from './types';
 
 export const initialState: UserStoreState = {
   activeStep: Steps.FIRST,
+  formIsValidated: false,
   enterpriseStep: {
     federalDocument: '',
     corporateName: '',

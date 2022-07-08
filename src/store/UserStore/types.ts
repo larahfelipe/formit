@@ -1,6 +1,6 @@
 import type { SetState as ZustandSetState } from 'zustand';
 
-import { Steps } from '@/pages/Main/types';
+import { Steps } from '@/pages/Form/types';
 
 export type EnterpriseStep = {
   federalDocument: string;
@@ -42,6 +42,7 @@ export type PaymentMethods = {
 
 export type UserStoreState = {
   activeStep: Steps;
+  formIsValidated: boolean;
   enterpriseStep: EnterpriseStep;
   addressStep: AddressStep;
   proprietaryStep: ProprietaryStep;
@@ -51,6 +52,7 @@ export type UserStoreState = {
 export type UserStoreActions = {
   resetStore: () => void;
   setActiveStep: (payload: Steps) => void;
+  setFormIsValidated: (payload: boolean) => void;
   setEnterpriseStep: (payload: EnterpriseStep) => void;
   setAddressStep: (payload: AddressStep) => void;
   setProprietaryStep: (payload: ProprietaryStep) => void;
