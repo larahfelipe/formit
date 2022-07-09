@@ -39,6 +39,7 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
       setValue('publicPlace', addressData.street);
       setValue('district', addressData.neighborhood);
       setValue('city', addressData.city);
+      setValue('state', addressData.state);
     }
   }, [addressData, setValue]);
 
@@ -56,7 +57,11 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
       <div className={classes.InlineFieldsWrapper}>
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Endereço</M.Text>
-          <Input control={control} name="publicPlace" />
+          <Input
+            control={control}
+            name="publicPlace"
+            disabled={!!addressData.street}
+          />
         </div>
 
         <div className={classes.InputWrapper}>
@@ -72,13 +77,17 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">Bairro</M.Text>
-        <Input control={control} name="district" />
+        <Input
+          control={control}
+          name="district"
+          disabled={!!addressData.neighborhood}
+        />
       </div>
 
       <div className={classes.InlineFieldsWrapper}>
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Cidade</M.Text>
-          <Input control={control} name="city" />
+          <Input control={control} name="city" disabled={!!addressData.city} />
         </div>
 
         <div className={classes.InputWrapper}>
@@ -88,6 +97,7 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
             control={control}
             name="state"
             data={BRAZILIAN_STATES}
+            disabled={!!addressData.state}
           />
         </div>
       </div>
