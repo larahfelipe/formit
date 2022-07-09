@@ -62,11 +62,12 @@ export const useSteps = () => {
         )
       }
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      addressStepMethods,
-      enterpriseStepMethods,
-      paymentMethodsStepMethods,
-      proprietaryStepMethods
+      enterpriseStepMethods.formState.isValid,
+      addressStepMethods.formState.isValid,
+      paymentMethodsStepMethods.formState.isValid,
+      proprietaryStepMethods.formState.isValid
     ]
   );
 
