@@ -99,12 +99,11 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
           <Controller
             control={control}
             name="filesStorageRef"
-            render={({ field: { value, onChange } }) => (
+            render={({ field: { onChange } }) => (
               <input
                 multiple
                 type="file"
                 maxLength={MAX_DATA_SIZE}
-                value={value}
                 onChange={async (e: ChangeEvent<any>) =>
                   onChange(await handleOnChangeFileInput(e.target.files))
                 }
