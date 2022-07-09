@@ -19,7 +19,24 @@ export const useStyles = createStyles((theme) => ({
   },
   ErrorText: {
     marginTop: '5px',
+    marginBottom: '-0.5rem',
 
-    color: theme.colors.red[7]
+    color: theme.colors.red[7],
+
+    WebkitAnimation: 'slidein 0.5s forwards',
+    WebkitAnimationDelay: '2s',
+
+    '@keyframes slidein': {
+      '0%': {
+        opacity: 0,
+        transform: 'translateY(-100%)'
+      },
+      '100%': {
+        opacity: 1,
+        transform: 'translateY(0%)'
+      }
+    },
+
+    animation: 'slidein 0.3s forwards'
   }
 }));
