@@ -17,10 +17,10 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
   const { getEnterpriseByCnpj, enterpriseData } = useBrasilApi();
 
-  const setEnterpriseStep = useUserStore((state) => state.setEnterpriseStep);
-
   const { control, handleSubmit, watch, setValue } =
     useFormContext<EnterpriseStepData>();
+
+  const setEnterpriseStep = useUserStore((state) => state.setEnterpriseStep);
 
   const handleEnterpriseSubmit: SubmitHandler<EnterpriseStepData> = (
     formData

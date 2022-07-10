@@ -13,6 +13,9 @@ export const useStyles = createStyles((theme) => ({
     width: '35%',
     height: '12rem',
 
+    maxWidth: '40rem',
+    maxHeight: '15rem',
+
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
