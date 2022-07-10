@@ -13,6 +13,9 @@ export const useStyles = createStyles((theme) => ({
     width: '45%',
     height: '90%',
 
+    maxWidth: '60rem',
+    maxHeight: '55rem',
+
     '@media (max-width: 1525px)': {
       width: '60%'
     },
