@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import { ChangeEvent, memo } from 'react';
 
 import * as M from '@mantine/core';
 import masks from '@nafuzi/brazilian-masks';
@@ -7,7 +7,7 @@ import { Controller, FieldValues } from 'react-hook-form';
 import { useStyles } from './styles';
 import type { InputProps, CallbackFunction } from './types';
 
-export const Input = <T extends FieldValues>({
+const InputComponent = <T extends FieldValues>({
   control,
   name,
   type = 'text',
@@ -85,3 +85,5 @@ export const Input = <T extends FieldValues>({
     </>
   );
 };
+
+export const Input = memo(InputComponent) as typeof InputComponent;
