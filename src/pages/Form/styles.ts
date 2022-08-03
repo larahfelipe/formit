@@ -53,6 +53,9 @@ export const useStyles = createStyles((theme) => ({
 
     '@media (max-width: 760px)': {
       overflowY: 'auto'
+    },
+    '@media (max-height: 860px)': {
+      overflowY: 'auto'
     }
   },
   CardHeader: {
@@ -73,6 +76,10 @@ export const useStyles = createStyles((theme) => ({
   ButtonsWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
+
+    '@media (max-height: 860px)': {
+      marginTop: '4rem'
+    }
   }
 }));
