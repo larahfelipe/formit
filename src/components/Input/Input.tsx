@@ -5,7 +5,7 @@ import masks from '@nafuzi/brazilian-masks';
 import { Controller, FieldValues } from 'react-hook-form';
 
 import { useStyles } from './styles';
-import type { InputProps, CallbackFunction } from './types';
+import type { CallbackFunction, InputProps } from './types';
 
 const InputComponent = <T extends FieldValues>({
   control,
@@ -17,6 +17,7 @@ const InputComponent = <T extends FieldValues>({
   defaultValue,
   mask,
   disabled,
+  loading,
   ...props
 }: InputProps<T>) => {
   const { classes } = useStyles();
@@ -56,23 +57,28 @@ const InputComponent = <T extends FieldValues>({
               </datalist>
             )}
 
-            <input
-              className={classes.Input}
-              type={type}
-              list={type === 'select' ? name : undefined}
-              placeholder={placeholder}
-              value={value}
-              onBlur={handleChange(onBlur)}
-              onChange={handleChange(onChange)}
-              disabled={disabled}
-              style={{
-                borderColor: errors[name]?.message && 'red',
-                backgroundColor: errors[name]?.message && '#fff5f5',
-                opacity: disabled ? 0.5 : 1,
-                cursor: disabled ? 'not-allowed' : 'inherit'
-              }}
-              {...props}
-            />
+            <div className={classes.Wrapper}>
+              <input
+                className={classes.Input}
+                type={type}
+                list={type === 'select' ? name : undefined}
+                placeholder={placeholder}
+                value={value}
+                onBlur={handleChange(onBlur)}
+                onChange={handleChange(onChange)}
+                disabled={disabled}
+                style={{
+                  borderColor: errors[name]?.message && 'red',
+                  backgroundColor: errors[name]?.message && '#fff5f5',
+                  opacity: disabled ? 0.5 : 1,
+                  cursor: disabled ? 'not-allowed' : 'inherit'
+                }}
+                {...props}
+              />
+              {loading && (
+                <M.Loader className={classes.Loader} size="sm" color="green" />
+              )}
+            </div>
 
             {!!errors[name]?.message && (
               <M.Text size="sm" className={classes.ErrorText}>
