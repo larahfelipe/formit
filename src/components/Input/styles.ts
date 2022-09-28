@@ -1,6 +1,10 @@
 import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme) => ({
+  Wrapper: {
+    display: 'flex',
+    alignItems: 'center'
+  },
   Input: {
     width: '100%',
 
@@ -16,6 +20,12 @@ export const useStyles = createStyles((theme) => ({
       border: `1px solid ${theme.colors.green[7]}`,
       backgroundColor: '#f7fcf5'
     }
+  },
+  Loader: {
+    position: 'absolute',
+    right: '2.8rem',
+
+    backgroundColor: theme.colors.gray[0]
   },
   ErrorText: {
     marginTop: '5px',

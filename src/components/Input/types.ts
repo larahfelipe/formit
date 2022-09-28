@@ -20,6 +20,7 @@ export interface InputProps<T extends FieldValues> {
   min?: string;
   max?: string;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 export type CallbackFunction = (value: string) => void;

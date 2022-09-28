@@ -4,18 +4,18 @@ import * as M from '@mantine/core';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { validateCNPJ } from 'validations-br';
 
-import { MIN_DATE_RANGE, MAX_DATE_RANGE } from '@/common';
+import { MAX_DATE_RANGE, MIN_DATE_RANGE } from '@/common';
 import { Input } from '@/components';
 import { MERCHANT_CATEGORY_CODES } from '@/data';
 import { EnterpriseStep as EnterpriseStepData, useUserStore } from '@/store';
 
 import { useBrasilApi } from '../../hooks';
-import { StepComponentProps, Steps, FormNames } from '../../types';
+import { FormNames, StepComponentProps, Steps } from '../../types';
 import { useStyles } from './styles';
 
 export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
-  const { getEnterpriseByCnpj, enterpriseData } = useBrasilApi();
+  const { isLoading, getEnterpriseByCnpj, enterpriseData } = useBrasilApi();
 
   const { control, handleSubmit, watch, setValue } =
     useFormContext<EnterpriseStepData>();
@@ -52,7 +52,12 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
     >
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">CNPJ</M.Text>
-        <Input control={control} name="federalDocument" mask="cnpj" />
+        <Input
+          control={control}
+          name="federalDocument"
+          mask="cnpj"
+          loading={isLoading}
+        />
       </div>
 
       <div className={classes.InputWrapper}>
@@ -60,7 +65,7 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
         <Input
           control={control}
           name="corporateName"
-          disabled={!!enterpriseData.razao_social}
+          disabled={!!enterpriseData.razao_social || isLoading}
         />
       </div>
 
@@ -83,7 +88,7 @@ export const EnterpriseStep = ({ onChangeStep }: StepComponentProps) => {
           min={MIN_DATE_RANGE}
           max={MAX_DATE_RANGE}
           name="creationDate"
-          disabled={!!enterpriseData.data_inicio_atividade}
+          disabled={!!enterpriseData.data_inicio_atividade || isLoading}
         />
       </div>
 
