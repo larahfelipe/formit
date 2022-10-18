@@ -1,7 +1,6 @@
-import * as M from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
-import { IS_LAST_STEP, IS_FIRST_STEP } from '@/common';
+import { IS_FIRST_STEP, IS_LAST_STEP } from '@/common';
 import { Button } from '@/components';
 import { useUserStore } from '@/store';
 
@@ -27,36 +26,27 @@ export const Form = () => {
 
   return (
     <div className={classes.Wrapper}>
-      <div className={classes.CardWrapper}>
-        <M.Card className={classes.Card} shadow="md">
-          <M.CardSection className={classes.CardHeader}>
-            <Stepper
-              steps={steps}
-              currentStep={activeStep}
-              onChangeStep={handleNextStep}
-            />
-          </M.CardSection>
+      <Stepper
+        steps={steps}
+        currentStep={activeStep}
+        onChangeStep={handleNextStep}
+      />
 
-          <M.CardSection className={classes.CardFooter}>
-            <div className={classes.ButtonsWrapper}>
-              <Button
-                variant="subtle"
-                disabled={IS_FIRST_STEP(activeStep)}
-                onClick={handlePreviousStep}
-              >
-                Voltar
-              </Button>
-              <Button
-                type="submit"
-                variant="light"
-                form={selectedStep.formName}
-                disabled={!selectedStep.formDataIsValid}
-              >
-                Próximo
-              </Button>
-            </div>
-          </M.CardSection>
-        </M.Card>
+      <div className={classes.ButtonsWrapper}>
+        {!IS_FIRST_STEP(activeStep) && (
+          <Button variant="subtle" onClick={handlePreviousStep}>
+            Voltar
+          </Button>
+        )}
+        <Button
+          className={classes.NextButton}
+          type="submit"
+          variant="light"
+          form={selectedStep.formName}
+          disabled={!selectedStep.formDataIsValid}
+        >
+          Próximo
+        </Button>
       </div>
     </div>
   );

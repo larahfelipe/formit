@@ -1,4 +1,4 @@
-import { MantineProvider, Global } from '@mantine/core';
+import { Global, MantineProvider } from '@mantine/core';
 
 import { theme as customTheme } from '@/styles/theme';
 
@@ -14,18 +14,17 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       <Global
         styles={(theme) => ({
           '*': {
+            '-webkit-appearance': 'none',
             margin: 0,
             padding: 0,
             boxSizing: 'border-box'
-          },
-          body: {
-            background: theme.colors.gray[1]
           },
           'body, input, button, textarea': {
             border: 'none',
             outline: 'inherit',
             fontSize: theme.fontSizes.sm,
-            fontFamily: customTheme.fonts.family
+            fontFamily: customTheme.fonts.family,
+            color: '#04042E'
           },
           'button, a': {
             cursor: 'pointer',

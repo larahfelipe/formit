@@ -5,7 +5,7 @@ export const useStyles = createStyles({
     width: '100%'
   },
   InputWrapper: {
-    marginTop: '1.5rem'
+    marginTop: '2rem'
   },
   FileInputLabelWrapper: {
     display: 'flex',

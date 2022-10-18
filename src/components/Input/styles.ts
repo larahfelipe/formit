@@ -3,27 +3,31 @@ import { createStyles } from '@mantine/core';
 export const useStyles = createStyles((theme) => ({
   Wrapper: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+
+    position: 'relative'
   },
   Input: {
     width: '100%',
 
-    padding: '0.6rem 0.8rem',
+    padding: '0.8rem 0.9rem',
 
-    fontSize: theme.fontSizes.md,
-    background: theme.colors.gray[0],
-    border: `1px solid ${theme.colors.gray[4]}`,
+    fontSize: theme.fontSizes.lg,
+    backgroundColor: '#f1f3f5',
+
+    border: '1px solid #f1f3f5',
     borderRadius: theme.radius.sm,
 
-    transition: 'border 0.2s ease-in-out',
+    transition: 'all 0.2s ease-in-out',
+
     '&:focus': {
-      border: `1px solid ${theme.colors.green[7]}`,
-      backgroundColor: '#f7fcf5'
+      border: `1px solid ${theme.colors.blue[7]}`,
+      backgroundColor: 'rgba(29, 28, 229, 0.05)'
     }
   },
   Loader: {
     position: 'absolute',
-    right: '2.8rem',
+    right: '1rem',
 
     backgroundColor: theme.colors.gray[0]
   },
@@ -32,20 +36,6 @@ export const useStyles = createStyles((theme) => ({
     marginBottom: '-0.5rem',
 
     color: theme.colors.red[7],
-
-    WebkitAnimation: 'slidein 0.5s forwards',
-    WebkitAnimationDelay: '2s',
-
-    '@keyframes slidein': {
-      '0%': {
-        opacity: 0,
-        transform: 'translateY(-100%)'
-      },
-      '100%': {
-        opacity: 1,
-        transform: 'translateY(0%)'
-      }
-    },
 
     animation: 'slidein 0.3s forwards'
   }

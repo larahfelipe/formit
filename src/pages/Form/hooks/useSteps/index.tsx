@@ -8,7 +8,7 @@ import {
   PaymentMethodsStep,
   ProprietaryStep
 } from '../../components';
-import { Step, FormNames } from '../../types';
+import { FormNames, Step } from '../../types';
 import { useStepForms } from '../useStepForms';
 
 export const useSteps = () => {
@@ -22,7 +22,7 @@ export const useSteps = () => {
   const steps = useMemo<Step[]>(
     () => [
       {
-        title: 'Estabelecimento',
+        title: 'Empreendimento',
         formName: FormNames.ENTERPRISE_STEP,
         formDataIsValid: enterpriseStepMethods.formState.isValid,
         Element: ({ onChangeStep }) => (
@@ -66,8 +66,8 @@ export const useSteps = () => {
     [
       enterpriseStepMethods.formState.isValid,
       addressStepMethods.formState.isValid,
-      paymentMethodsStepMethods.formState.isValid,
-      proprietaryStepMethods.formState.isValid
+      proprietaryStepMethods.formState.isValid,
+      paymentMethodsStepMethods.formState.isValid
     ]
   );
 
