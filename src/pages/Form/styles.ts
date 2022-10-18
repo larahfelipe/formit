@@ -7,7 +7,12 @@ export const useStyles = createStyles((theme) => ({
 
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+
+    '@media (max-width: 585px)': {
+      width: '100%',
+      height: '100%'
+    }
   },
   CardWrapper: {
     width: '45%',
@@ -81,5 +86,8 @@ export const useStyles = createStyles((theme) => ({
     '@media (max-height: 860px)': {
       marginTop: '4rem'
     }
+  },
+  NextButton: {
+    marginLeft: 'auto'
   }
 }));

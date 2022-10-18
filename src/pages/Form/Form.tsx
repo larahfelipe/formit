@@ -1,7 +1,7 @@
 import * as M from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
-import { IS_LAST_STEP, IS_FIRST_STEP } from '@/common';
+import { IS_FIRST_STEP, IS_LAST_STEP } from '@/common';
 import { Button } from '@/components';
 import { useUserStore } from '@/store';
 
@@ -39,14 +39,13 @@ export const Form = () => {
 
           <M.CardSection className={classes.CardFooter}>
             <div className={classes.ButtonsWrapper}>
+              {!IS_FIRST_STEP(activeStep) && (
+                <Button variant="subtle" onClick={handlePreviousStep}>
+                  Voltar
+                </Button>
+              )}
               <Button
-                variant="subtle"
-                disabled={IS_FIRST_STEP(activeStep)}
-                onClick={handlePreviousStep}
-              >
-                Voltar
-              </Button>
-              <Button
+                className={classes.NextButton}
                 type="submit"
                 variant="light"
                 form={selectedStep.formName}
