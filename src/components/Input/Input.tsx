@@ -76,7 +76,7 @@ const InputComponent = <T extends FieldValues>({
                 {...props}
               />
               {loading && (
-                <M.Loader className={classes.Loader} size="sm" color="green" />
+                <M.Loader className={classes.Loader} size="sm" color="gray" />
               )}
             </div>
 

@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-export const useStyles = createStyles((theme) => ({
+export const useStyles = createStyles(() => ({
   Wrapper: {
     width: '100vw',
     height: '100vh',
@@ -59,11 +59,11 @@ export const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
 
-    backgroundColor: theme.colors.green[0],
-    borderBottom: `1px solid ${theme.colors.green[2]}`,
+    borderBottom: '1px solid #e0e0e0',
+    backgroundColor: '#f5f5f5',
 
     '> h3': {
-      color: theme.colors.green[9]
+      color: '#04042E'
     }
   },
   Body: {
