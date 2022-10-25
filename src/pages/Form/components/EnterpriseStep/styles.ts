@@ -5,6 +5,6 @@ export const useStyles = createStyles(() => ({
     width: '100%'
   },
   InputWrapper: {
-    marginTop: '1.2rem'
+    marginTop: '2rem'
   }
 }));

@@ -1,15 +1,15 @@
 import type { ChangeEvent } from 'react';
 
 import * as M from '@mantine/core';
-import { SubmitHandler, useFormContext, Controller } from 'react-hook-form';
+import { Controller, SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { MIN_DATE_RANGE, MAX_DATE_RANGE, MAX_DATA_SIZE } from '@/common';
+import { MAX_DATA_SIZE, MAX_DATE_RANGE, MIN_DATE_RANGE } from '@/common';
 import { Input } from '@/components';
 import { ProprietaryStep as ProprietaryStepData, useUserStore } from '@/store';
 import { useSanitizedStoreData } from '@/utils';
 
 import { useFirebaseStorage } from '../../hooks';
-import { StepComponentProps, Steps, FormNames } from '../../types';
+import { FormNames, StepComponentProps, Steps } from '../../types';
 import { useStyles } from './styles';
 
 export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
@@ -92,10 +92,10 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
         <div className={classes.FileInputFieldWrapper}>
           <M.List size="xs" className={classes.RequiredFilesList}>
             <M.ListItem>RG ou CNH do sócio da empresa</M.ListItem>
-            <M.ListItem>Cartão CNPJ</M.ListItem>
             <M.ListItem>Comprovante de endereço</M.ListItem>
-            <M.ListItem>Comprovante de atividade</M.ListItem>
+            <M.ListItem>Cartão CNPJ</M.ListItem>
           </M.List>
+
           <Controller
             control={control}
             name="filesStorageRef"
@@ -111,9 +111,6 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
             )}
           />
         </div>
-        <M.Text size="xs" align="right">
-          Formatos aceitos: PDF, JPEG e PNG
-        </M.Text>
       </div>
     </form>
   );
