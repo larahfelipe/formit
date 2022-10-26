@@ -2,16 +2,12 @@ import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles(() => ({
   Wrapper: {
-    width: '100vw',
+    width: '100%',
     height: '100vh',
 
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-
-    '@media (max-width: 610px)': {
-      overflowX: 'hidden'
-    }
+    justifyContent: 'space-between'
   },
   ButtonsWrapper: {
     display: 'flex',
@@ -28,8 +24,7 @@ export const useStyles = createStyles(() => ({
       padding: '0 5rem'
     },
     '@media (max-width: 610px)': {
-      padding: '0 2.5rem',
-      paddingTop: '3rem'
+      padding: '1rem 2.5rem 2rem 2.5rem'
     }
   },
   NextButton: {

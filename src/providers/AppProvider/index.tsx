@@ -14,6 +14,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       <Global
         styles={(theme) => ({
           '*': {
+            '-webkit-appearance': 'none',
             margin: 0,
             padding: 0,
             boxSizing: 'border-box'

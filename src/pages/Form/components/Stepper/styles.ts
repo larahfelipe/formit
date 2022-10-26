@@ -21,10 +21,11 @@ export const StepperStyles = {
       padding: '0 1.5rem'
     },
     '@media (max-width: 610px)': {
-      gap: '1rem',
+      width: 'fit-content',
+      height: '10rem',
 
       padding: 'unset',
-      marginLeft: '2.5rem'
+      marginLeft: '2.25rem'
     }
   },
   step: {
