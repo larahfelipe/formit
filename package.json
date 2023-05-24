@@ -2,6 +2,7 @@
   "name": "formit",
   "private": true,
   "version": "0.0.0",
+  "author": "larahfelipe",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
