@@ -1,7 +1,7 @@
-import { initializeApp, FirebaseOptions } from 'firebase/app';
+import { FirebaseOptions, initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 
-import config from '@/config';
+import config from '@/common/config';
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: config.firebaseApiKey,

@@ -1,24 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@/components';
+import { Button } from '@/components/Button';
 import { useUserStore } from '@/store';
 
 import { useApi } from './hooks';
 import { useStyles } from './styles';
 
-export const SendConfirmation = () => {
+export default function ConfirmationPage() {
   const { classes } = useStyles();
-  const { handleSendUserData } = useApi();
+  const { sendUserData } = useApi();
   const setFormIsValidated = useUserStore((state) => state.setFormIsValidated);
 
   const navigate = useNavigate();
 
-  const handleOnCancel = () => {
+  const handleCancel = () => {
     setFormIsValidated(false);
     navigate('/');
   };
-  const handleOnConfirm = () => {
-    handleSendUserData();
+
+  const handleConfirm = () => {
+    sendUserData();
     navigate('/');
   };
 
@@ -37,14 +38,14 @@ export const SendConfirmation = () => {
         </div>
 
         <div className={classes.Footer}>
-          <Button variant="subtle" onClick={handleOnCancel}>
+          <Button variant="subtle" onClick={handleCancel}>
             Cancelar
           </Button>
-          <Button variant="light" onClick={handleOnConfirm}>
+          <Button variant="light" onClick={handleConfirm}>
             Enviar
           </Button>
         </div>
       </div>
     </div>
   );
-};
+}

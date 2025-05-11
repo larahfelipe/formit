@@ -1,4 +1,5 @@
-export * from './AddressStepSchema';
-export * from './EnterpriseStepSchema';
-export * from './PaymentMethodsStepSchema';
-export * from './ProprietaryStepSchema';
+export * from './AddressSchema';
+export * from './BillingSchema';
+export * from './CompanySchema';
+export * from './OwnerSchema';
+

@@ -1,15 +1,17 @@
+import { useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
-import { IS_FIRST_STEP, IS_LAST_STEP } from '@/common';
-import { Button } from '@/components';
+import { checkIsFirstStep, checkIsLastStep } from '@/common/utils';
+import { Button } from '@/components/Button';
 import { useUserStore } from '@/store';
 
 import { Stepper } from './components';
-import { useSteps } from './hooks';
+import { useSteps } from './hooks/useSteps';
 import { useStyles } from './styles';
-import { Steps } from './types';
+import { StepsNum } from './types';
 
-export const Form = () => {
+export default function FormPage() {
   const { classes } = useStyles();
   const { steps } = useSteps();
 
@@ -21,8 +23,13 @@ export const Form = () => {
   const selectedStep = steps[activeStep];
 
   const handlePreviousStep = () => setActiveStep(activeStep - 1);
-  const handleNextStep = (step: Steps) =>
-    IS_LAST_STEP(activeStep) ? navigate('/confirmation') : setActiveStep(step);
+
+  const handleNextStep = (stepNum: StepsNum) =>
+    checkIsLastStep(activeStep) ? navigate('/confirm') : setActiveStep(stepNum);
+
+  useEffect(() => {
+    document.title = `Registly | ${selectedStep.title}`;
+  }, [selectedStep]);
 
   return (
     <div className={classes.Wrapper}>
@@ -33,7 +40,7 @@ export const Form = () => {
       />
 
       <div className={classes.ButtonsWrapper}>
-        {!IS_FIRST_STEP(activeStep) && (
+        {!checkIsFirstStep(activeStep) && (
           <Button variant="subtle" onClick={handlePreviousStep}>
             Voltar
           </Button>
@@ -43,11 +50,11 @@ export const Form = () => {
           type="submit"
           variant="light"
           form={selectedStep.formName}
-          disabled={!selectedStep.formDataIsValid}
+          disabled={!selectedStep.formIsValid}
         >
           Próximo
         </Button>
       </div>
     </div>
   );
-};
+}

@@ -1,16 +1,15 @@
 import { UploadMetadata, ref, uploadBytes } from 'firebase/storage';
 
-import { firebaseStorage } from '@/services';
+import { firebaseStorage } from '@/lib/firebase';
 
 export const useFirebaseStorage = () => {
   const handleUploadFile = async (
     file: File | Blob | ArrayBuffer | Uint8Array,
-    reference: string,
+    url: string,
     metadata?: UploadMetadata
   ) => {
-    const storageRef = ref(firebaseStorage, reference);
-
     try {
+      const storageRef = ref(firebaseStorage, url);
       const snapshot = await uploadBytes(storageRef, file, metadata);
       return snapshot;
     } catch (err) {

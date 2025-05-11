@@ -4,40 +4,41 @@ import * as M from '@mantine/core';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { validateCep } from 'validations-br';
 
-import { Input } from '@/components';
+import { Input } from '@/components/Input';
 import { BRAZILIAN_STATES } from '@/data';
-import { AddressStep as AddressStepData, useUserStore } from '@/store';
+import { Address, useUserStore } from '@/store';
 
-import { useBrasilApi } from '../../hooks';
-import { FormNames, StepComponentProps, Steps } from '../../types';
+import { useBrasilApi } from '../../hooks/useBrasilApi';
+import { FormNames, StepComponentProps, StepsNum } from '../../types';
 import { useStyles } from './styles';
 
-export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
+export function AddressStep({ onChangeStep }: Readonly<StepComponentProps>) {
   const { classes } = useStyles();
   const { isLoading, getAddressByZipCode, addressData } = useBrasilApi();
 
-  const { control, handleSubmit, watch, setValue } =
-    useFormContext<AddressStepData>();
+  const { control, handleSubmit, watch, setValue } = useFormContext<Address>();
 
-  const setAddressStep = useUserStore((state) => state.setAddressStep);
+  const setAddress = useUserStore((state) => state.setAddress);
 
-  const handleAddressSubmit: SubmitHandler<AddressStepData> = (formData) => {
-    setAddressStep(formData);
-    onChangeStep(Steps.THIRD);
+  const onSubmitAddressForm: SubmitHandler<Address> = (formData) => {
+    setAddress(formData);
+    onChangeStep(StepsNum.THIRD);
   };
 
-  const addressZipCode = watch('zipCode');
-
   useEffect(() => {
-    const isValidZipCode = validateCep(addressZipCode);
+    const subscription = watch(({ zipCode }, { name }) => {
+      if (name === 'zipCode') {
+        if (zipCode && validateCep(zipCode)) getAddressByZipCode(zipCode);
+      }
+    });
 
-    if (isValidZipCode) getAddressByZipCode(addressZipCode);
-  }, [addressZipCode, getAddressByZipCode]);
+    return () => subscription.unsubscribe();
+  }, [watch, getAddressByZipCode]);
 
   useEffect(() => {
     if (addressData) {
-      setValue('publicPlace', addressData.street);
-      setValue('district', addressData.neighborhood);
+      setValue('streetName', addressData.street);
+      setValue('neighborhood', addressData.neighborhood);
       setValue('city', addressData.city);
       setValue('state', addressData.state);
     }
@@ -46,7 +47,7 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
   return (
     <form
       id={FormNames.ADDRESS_STEP}
-      onSubmit={handleSubmit(handleAddressSubmit)}
+      onSubmit={handleSubmit(onSubmitAddressForm)}
       className={classes.Wrapper}
     >
       <div className={classes.InputWrapper}>
@@ -64,14 +65,14 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
           <M.Text mb="8px">Endereço</M.Text>
           <Input
             control={control}
-            name="publicPlace"
-            disabled={!!addressData.street || isLoading}
+            name="streetName"
+            disabled={!!addressData?.street || isLoading}
           />
         </div>
 
         <div className={classes.InputWrapper}>
           <M.Text mb="8px">Número</M.Text>
-          <Input control={control} name="number" />
+          <Input control={control} name="streetNumber" />
         </div>
       </div>
 
@@ -84,8 +85,8 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
         <M.Text mb="8px">Bairro</M.Text>
         <Input
           control={control}
-          name="district"
-          disabled={!!addressData.neighborhood || isLoading}
+          name="neighborhood"
+          disabled={!!addressData?.neighborhood || isLoading}
         />
       </div>
 
@@ -95,7 +96,7 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
           <Input
             control={control}
             name="city"
-            disabled={!!addressData.city || isLoading}
+            disabled={!!addressData?.city || isLoading}
           />
         </div>
 
@@ -106,10 +107,10 @@ export const AddressStep = ({ onChangeStep }: StepComponentProps) => {
             control={control}
             name="state"
             data={BRAZILIAN_STATES}
-            disabled={!!addressData.state || isLoading}
+            disabled={!!addressData?.state || isLoading}
           />
         </div>
       </div>
     </form>
   );
-};
+}

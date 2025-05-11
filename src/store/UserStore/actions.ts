@@ -5,30 +5,30 @@ export const resetStore = (set: SetState) => () => set({ ...initialState });
 
 export const setActiveStep =
   (set: SetState): UserStoreActions['setActiveStep'] =>
-  (payload) =>
-    set({ activeStep: payload });
+    (payload) =>
+      set({ activeStep: payload });
 
 export const setFormIsValidated =
   (set: SetState): UserStoreActions['setFormIsValidated'] =>
-  (payload) =>
-    set({ formIsValidated: payload });
+    (payload) =>
+      set({ formIsValidated: payload });
 
-export const setEnterprise =
-  (set: SetState): UserStoreActions['setEnterpriseStep'] =>
-  (payload) =>
-    set({ enterpriseStep: payload });
+export const setCompany =
+  (set: SetState): UserStoreActions['setCompany'] =>
+    (payload) =>
+      set({ company: payload });
 
 export const setAddress =
-  (set: SetState): UserStoreActions['setAddressStep'] =>
-  (payload) =>
-    set({ addressStep: payload });
+  (set: SetState): UserStoreActions['setAddress'] =>
+    (payload) =>
+      set({ address: payload });
 
-export const setProprietary =
-  (set: SetState): UserStoreActions['setProprietaryStep'] =>
-  (payload) =>
-    set({ proprietaryStep: payload });
+export const setOwner =
+  (set: SetState): UserStoreActions['setOwner'] =>
+    (payload) =>
+      set({ owner: payload });
 
-export const setPaymentMethods =
-  (set: SetState): UserStoreActions['setPaymentMethodsStep'] =>
-  (payload) =>
-    set({ paymentMethodsStep: payload });
+export const setBilling =
+  (set: SetState): UserStoreActions['setBilling'] =>
+    (payload) =>
+      set({ billing: payload });

@@ -2,37 +2,33 @@ import * as M from '@mantine/core';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { Input } from '@/components';
-import { BRAZILIAN_BANKS, ACCOUNT_TYPES } from '@/data';
-import { PaymentMethods as PaymentMethodsData, useUserStore } from '@/store';
+import { Input } from '@/components/Input';
+import { ACCOUNT_TYPES, BRAZILIAN_BANKS } from '@/data';
+import { Billing as BillingFormSchema, useUserStore } from '@/store';
 
 import { FormNames } from '../../types';
 import { useStyles } from './styles';
 
-export const PaymentMethodsStep = () => {
+export const BillingStep = () => {
   const { classes } = useStyles();
 
-  const { control, handleSubmit } = useFormContext<PaymentMethodsData>();
+  const { control, handleSubmit } = useFormContext<BillingFormSchema>();
 
   const navigate = useNavigate();
 
-  const setPaymentMethodsStep = useUserStore(
-    (state) => state.setPaymentMethodsStep
-  );
+  const setBilling = useUserStore((state) => state.setBilling);
   const setFormIsValidated = useUserStore((state) => state.setFormIsValidated);
 
-  const handlePaymentMethodsSubmit: SubmitHandler<PaymentMethodsData> = (
-    formData
-  ) => {
-    setPaymentMethodsStep(formData);
+  const onSubmitBillingForm: SubmitHandler<BillingFormSchema> = (formData) => {
+    setBilling(formData);
     setFormIsValidated(true);
-    navigate('/confirmation');
+    navigate('/confirm');
   };
 
   return (
     <form
-      id={FormNames.PAYMENT_METHODS_STEP}
-      onSubmit={handleSubmit(handlePaymentMethodsSubmit)}
+      id={FormNames.BILLING_STEP}
+      onSubmit={handleSubmit(onSubmitBillingForm)}
       className={classes.Wrapper}
     >
       <div className={classes.InputWrapper}>
@@ -81,11 +77,7 @@ export const PaymentMethodsStep = () => {
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">CPF/CNPJ do titular da conta</M.Text>
-        <Input
-          control={control}
-          name="accountHolderFederalDocument"
-          mask="cpfOrCnpj"
-        />
+        <Input control={control} name="holderCpfCnpj" mask="cpfOrCnpj" />
       </div>
     </form>
   );

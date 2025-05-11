@@ -5,32 +5,30 @@ import { useUserStore } from '@/store';
 import type { UserData } from './types';
 
 export const useSanitizedStoreData = () => {
-  const enterpriseStep = useUserStore((state) => state.enterpriseStep);
-  const addressStep = useUserStore((state) => state.addressStep);
-  const proprietaryStep = useUserStore((state) => state.proprietaryStep);
-  const paymentMethodsStep = useUserStore((state) => state.paymentMethodsStep);
+  const company = useUserStore((state) => state.company);
+  const address = useUserStore((state) => state.address);
+  const owner = useUserStore((state) => state.owner);
+  const billing = useUserStore((state) => state.billing);
 
   const getAll = () => {
     const formattedUserData: UserData = {
-      enterprise: {
-        ...enterpriseStep,
-        federalDocument: clear(enterpriseStep.federalDocument),
-        phone: clear(enterpriseStep.phone)
+      company: {
+        ...company,
+        cnpj: clear(company.cnpj),
+        phone: clear(company.phone)
       },
       address: {
-        ...addressStep,
-        zipCode: clear(addressStep.zipCode)
+        ...address,
+        zipCode: clear(address.zipCode)
       },
-      proprietary: {
-        ...proprietaryStep,
-        federalDocument: clear(proprietaryStep.federalDocument),
-        phone: clear(proprietaryStep.phone)
+      owner: {
+        ...owner,
+        cpf: clear(owner.cpf),
+        phone: clear(owner.phone)
       },
-      paymentMethods: {
-        ...paymentMethodsStep,
-        accountHolderFederalDocument: clear(
-          paymentMethodsStep.accountHolderFederalDocument
-        )
+      billing: {
+        ...billing,
+        holderCpfCnpj: clear(billing.holderCpfCnpj)
       }
     };
 

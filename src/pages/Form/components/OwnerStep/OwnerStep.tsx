@@ -3,57 +3,51 @@ import type { ChangeEvent } from 'react';
 import * as M from '@mantine/core';
 import { Controller, SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { MAX_DATA_SIZE, MAX_DATE_RANGE, MIN_DATE_RANGE } from '@/common';
-import { Input } from '@/components';
-import { ProprietaryStep as ProprietaryStepData, useUserStore } from '@/store';
+import {
+  MAX_DATA_SIZE,
+  MAX_DATE_RANGE,
+  MIN_DATE_RANGE
+} from '@/common/constants';
+import { Input } from '@/components/Input';
+import { Owner as OwnerFormSchema, useUserStore } from '@/store';
 import { useSanitizedStoreData } from '@/utils';
 
-import { useFirebaseStorage } from '../../hooks';
-import { FormNames, StepComponentProps, Steps } from '../../types';
+import { useFirebaseStorage } from '../../hooks/useFirebaseStorage';
+import { FormNames, StepComponentProps, StepsNum } from '../../types';
 import { useStyles } from './styles';
 
-export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
+export const OwnerStep = ({ onChangeStep }: StepComponentProps) => {
   const { classes } = useStyles();
   const { handleUploadFile } = useFirebaseStorage();
   const { getValue } = useSanitizedStoreData();
 
-  const { control, handleSubmit } = useFormContext<ProprietaryStepData>();
+  const { control, handleSubmit } = useFormContext<OwnerFormSchema>();
 
-  const setProprietaryStep = useUserStore((state) => state.setProprietaryStep);
+  const setOwner = useUserStore((state) => state.setOwner);
 
-  const handleOnChangeFileInput = async (files: FileList) => {
+  const handleChangeFileInput = async (files: FileList) => {
     const filesArray = [...files];
-    const sanitizedEnterpriseFederalDocument = getValue(
-      'enterprise',
-      'federalDocument'
-    );
+    const sanitizedCompanyCnpj = getValue('company', 'cnpj');
 
     const result = await Promise.all(
       filesArray.map((file) =>
-        handleUploadFile(
-          file,
-          `${sanitizedEnterpriseFederalDocument}/${file.name}`
-        )
+        handleUploadFile(file, `${sanitizedCompanyCnpj}/${file.name}`)
       )
     );
 
-    const proprietaryFilesStorageRef = result.map(
-      (file) => file?.metadata.fullPath
-    );
-    return proprietaryFilesStorageRef;
+    const ownerFilesUrls = result.map((file) => file?.metadata.fullPath);
+    return ownerFilesUrls;
   };
 
-  const handleProprietarySubmit: SubmitHandler<ProprietaryStepData> = (
-    formData
-  ) => {
-    setProprietaryStep(formData);
-    onChangeStep(Steps.FOURTH);
+  const onSubmitOwnerForm: SubmitHandler<OwnerFormSchema> = (formData) => {
+    setOwner(formData);
+    onChangeStep(StepsNum.FOURTH);
   };
 
   return (
     <form
-      id={FormNames.PROPRIETARY_STEP}
-      onSubmit={handleSubmit(handleProprietarySubmit)}
+      id={FormNames.OWNER_STEP}
+      onSubmit={handleSubmit(onSubmitOwnerForm)}
       className={classes.Wrapper}
     >
       <div className={classes.InputWrapper}>
@@ -63,7 +57,7 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
 
       <div className={classes.InputWrapper}>
         <M.Text mb="8px">CPF</M.Text>
-        <Input control={control} name="federalDocument" mask="cpf" />
+        <Input control={control} name="cpf" mask="cpf" />
       </div>
 
       <div className={classes.InputWrapper}>
@@ -73,12 +67,12 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
           type="date"
           min={MIN_DATE_RANGE}
           max={MAX_DATE_RANGE}
-          name="birthDate"
+          name="bornDate"
         />
       </div>
 
       <div className={classes.InputWrapper}>
-        <M.Text mb="8px">E-mail</M.Text>
+        <M.Text mb="8px">Email</M.Text>
         <Input control={control} name="email" />
       </div>
 
@@ -98,14 +92,14 @@ export const ProprietaryStep = ({ onChangeStep }: StepComponentProps) => {
 
           <Controller
             control={control}
-            name="filesStorageRef"
-            render={({ field: { onChange } }) => (
+            name="filesUrl"
+            render={({ field }) => (
               <input
                 multiple
                 type="file"
                 maxLength={MAX_DATA_SIZE}
                 onChange={async (e: ChangeEvent<any>) =>
-                  onChange(await handleOnChangeFileInput(e.target.files))
+                  field.onChange(await handleChangeFileInput(e.target.files))
                 }
               />
             )}

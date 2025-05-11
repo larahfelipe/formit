@@ -2,9 +2,9 @@ import { clear } from '@nafuzi/brazilian-masks';
 import { validateCNPJ, validateCPF } from 'validations-br';
 import * as yup from 'yup';
 
-import { BRAZILIAN_BANKS, ACCOUNT_TYPES } from '@/data';
+import { ACCOUNT_TYPES, BRAZILIAN_BANKS } from '@/data';
 
-export const PaymentMethodsStepSchema = yup.object().shape({
+export const billingSchema = yup.object({
   bankName: yup
     .string()
     .typeError('Banco inválido')
@@ -59,7 +59,7 @@ export const PaymentMethodsStepSchema = yup.object().shape({
     .max(1, 'Dígito da conta deve ter no máximo 1 caractere')
     .required('Dígito da conta é obrigatória')
     .trim(),
-  accountHolderFederalDocument: yup
+  holderCpfCnpj: yup
     .string()
     .typeError('CPF/CNPJ inválido')
     .min(14, 'CPF deve ter 11 dígitos')
@@ -67,12 +67,12 @@ export const PaymentMethodsStepSchema = yup.object().shape({
     .test(
       'is-cpf-or-cnpj',
       (params) => {
-        const isNotValid = clear(params?.value || '').length <= 11;
+        const isNotValid = clear(params?.value ?? '').length <= 11;
         if (isNotValid) return 'CPF inválido';
 
         return 'CNPJ inválido';
       },
-      (value) => validateCNPJ(value || '') || validateCPF(value || '')
+      (value) => validateCNPJ(value ?? '') || validateCPF(value ?? '')
     )
     .required('CPF/CNPJ é obrigatório')
     .trim()

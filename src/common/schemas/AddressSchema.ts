@@ -1,21 +1,21 @@
 import * as yup from 'yup';
 
-import { VALIDATIONS } from '@/common';
+import { VALIDATIONS } from '@/common/constants';
 import { BRAZILIAN_STATES } from '@/data';
 
-export const AddressStepSchema = yup.object().shape({
+export const addressSchema = yup.object({
   zipCode: yup
     .string()
     .typeError('CEP inválido')
     .matches(VALIDATIONS.cep, 'CEP inválido')
     .required('CEP é obrigatório')
     .trim(),
-  publicPlace: yup
+  streetName: yup
     .string()
     .typeError('Endereço inválido')
     .required('Endereço é obrigatório')
     .trim(),
-  number: yup
+  streetNumber: yup
     .number()
     .typeError('Número inválido')
     .required('Número é obrigatório'),
@@ -24,7 +24,7 @@ export const AddressStepSchema = yup.object().shape({
     .typeError('Complemento inválido')
     .notRequired()
     .trim(),
-  district: yup
+  neighborhood: yup
     .string()
     .typeError('Bairro inválido')
     .required('Bairro é obrigatório')

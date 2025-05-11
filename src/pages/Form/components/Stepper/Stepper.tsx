@@ -1,6 +1,6 @@
 import * as M from '@mantine/core';
 
-import { ProgressBar } from '@/components';
+import { ProgressBar } from '@/components/ProgressBar';
 
 import { StepperStyles, useStyles } from './styles';
 import type { StepperProps } from './types';

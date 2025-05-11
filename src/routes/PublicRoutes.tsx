@@ -1,11 +1,11 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Form } from '@/pages';
+import FormPage from '@/pages/Form';
 
 export const PublicRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Form />} />
+      <Route path="/" element={<FormPage />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

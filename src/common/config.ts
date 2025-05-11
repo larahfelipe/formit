@@ -7,5 +7,5 @@ export default {
   firebaseStorageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   firebaseMessagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   firebaseAppId: import.meta.env.VITE_FIREBASE_APP_ID,
-  userStorageKey: 'formit@user'
+  userStorageKey: 'registly:user'
 } as const;

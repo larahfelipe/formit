@@ -2,16 +2,16 @@ import { clear } from '@nafuzi/brazilian-masks';
 import { validateCPF } from 'validations-br';
 import * as yup from 'yup';
 
-import { VALIDATIONS } from '@/common';
+import { VALIDATIONS } from '@/common/constants';
 
-export const ProprietaryStepSchema = yup.object().shape({
+export const ownerSchema = yup.object({
   name: yup
     .string()
     .typeError('Nome inválido')
     .matches(VALIDATIONS.name, 'Nome inválido')
     .required('Nome é obrigatório')
     .trim(),
-  federalDocument: yup
+  cpf: yup
     .string()
     .typeError('CPF inválido')
     .min(14, 'CPF deve ter 11 dígitos')
@@ -19,14 +19,14 @@ export const ProprietaryStepSchema = yup.object().shape({
     .test(
       'is-cpf',
       (params) => {
-        const isNotValid = clear(params?.value || '').length <= 11;
+        const isNotValid = clear(params?.value ?? '').length <= 11;
         if (isNotValid) return 'CPF inválido';
       },
-      (value) => validateCPF(value || '')
+      (value) => validateCPF(value ?? '')
     )
     .required('CPF é obrigatório')
     .trim(),
-  birthDate: yup
+  bornDate: yup
     .string()
     .typeError('Data de nascimento inválida')
     .required('Data de nascimento é obrigatória')
@@ -42,6 +42,5 @@ export const ProprietaryStepSchema = yup.object().shape({
     .matches(VALIDATIONS.phone, 'Telefone inválido')
     .required('Telefone é obrigatório')
     .trim(),
-  // filesStorageRef: yup.array().min(1, 'Documento é obrigatório')
-  filesStorageRef: yup.array().notRequired()
+  filesUrl: yup.array().notRequired()
 });

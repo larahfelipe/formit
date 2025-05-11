@@ -1,5 +1,6 @@
 export * from './AddressStep';
-export * from './EnterpriseStep';
-export * from './PaymentMethodsStep';
-export * from './ProprietaryStep';
+export * from './BillingStep';
+export * from './CompanyStep';
+export * from './OwnerStep';
 export * from './Stepper';
+

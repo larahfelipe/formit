@@ -1,8 +1,8 @@
 import type { UserStoreState } from '@/store';
 
 export type UserData = {
-  enterprise: UserStoreState['enterpriseStep'];
-  address: UserStoreState['addressStep'];
-  proprietary: UserStoreState['proprietaryStep'];
-  paymentMethods: UserStoreState['paymentMethodsStep'];
+  company: UserStoreState['company'];
+  address: UserStoreState['address'];
+  owner: UserStoreState['owner'];
+  billing: UserStoreState['billing'];
 };

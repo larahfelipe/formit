@@ -1,11 +1,11 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { SendConfirmation } from '@/pages';
+import ConfirmationPage from '@/pages/Confirmation';
 
 export const ProtectedRoutes = () => {
   return (
     <Routes>
-      <Route path="/confirmation" element={<SendConfirmation />} />
+      <Route path="/confirm" element={<ConfirmationPage />} />
       <Route path="*" element={<Navigate to="/confirmation" />} />
     </Routes>
   );

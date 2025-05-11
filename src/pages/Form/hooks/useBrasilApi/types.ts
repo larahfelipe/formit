@@ -1,4 +1,4 @@
-export type AddressData = {
+export type GetAddressByZipCodeResponseData = {
   cep: string;
   state: string;
   city: string;
@@ -6,7 +6,7 @@ export type AddressData = {
   street: string;
 };
 
-export type EnterpriseData = {
+export type GetCompanyByCnpjResponseData = {
   cnpj: string;
   razao_social: string;
   nome_fantasia: string;

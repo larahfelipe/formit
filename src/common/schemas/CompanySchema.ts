@@ -2,11 +2,11 @@ import { clear } from '@nafuzi/brazilian-masks';
 import { validateCNPJ, validateCPF } from 'validations-br';
 import * as yup from 'yup';
 
-import { VALIDATIONS } from '@/common';
+import { VALIDATIONS } from '@/common/constants';
 import { MERCHANT_CATEGORY_CODES } from '@/data';
 
-export const EnterpriseStepSchema = yup.object().shape({
-  federalDocument: yup
+export const companySchema = yup.object({
+  cnpj: yup
     .string()
     .typeError('CNPJ inválido')
     .min(18, 'CNPJ deve ter 14 dígitos')
@@ -14,13 +14,13 @@ export const EnterpriseStepSchema = yup.object().shape({
     .test(
       'is-cpf-or-cnpj',
       (params) => {
-        if (clear(params?.value || '').length <= 11) return 'CNPJ inválido';
+        if (clear(params?.value ?? '').length <= 11) return 'CNPJ inválido';
       },
-      (value) => validateCNPJ(value || '') || validateCPF(value || '')
+      (value) => validateCNPJ(value ?? '') || validateCPF(value ?? '')
     )
     .required('CNPJ é obrigatório')
     .trim(),
-  corporateName: yup
+  name: yup
     .string()
     .typeError('Razão social inválida')
     .required('Razão social é obrigatória')
@@ -50,9 +50,9 @@ export const EnterpriseStepSchema = yup.object().shape({
     .trim(),
   email: yup
     .string()
-    .typeError('E-mail inválido')
-    .email('E-mail inválido')
-    .required('E-mail é obrigatório')
+    .typeError('Email inválido')
+    .email('Email inválido')
+    .required('Email é obrigatório')
     .trim(),
   phone: yup
     .string()

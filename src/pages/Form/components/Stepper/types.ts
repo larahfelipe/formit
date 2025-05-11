@@ -1,7 +1,7 @@
-import { Step, Steps } from '../../types';
+import { Step, StepsNum } from '../../types';
 
 export type StepperProps = {
   steps: Step[];
   currentStep: number;
-  onChangeStep: (step: Steps) => void;
+  onChangeStep: (step: StepsNum) => void;
 };

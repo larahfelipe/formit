@@ -1,42 +1,42 @@
-import { Steps } from '@/pages/Form/types';
+import { StepsNum } from '@/pages/Form/types';
 
 import type { UserStoreState } from './types';
 
 export const initialState: UserStoreState = {
-  activeStep: Steps.FIRST,
+  activeStep: StepsNum.FIRST,
   formIsValidated: false,
-  enterpriseStep: {
-    federalDocument: '',
-    corporateName: '',
+  company: {
+    cnpj: '',
+    name: '',
     businessCategory: '',
     creationDate: '',
     email: '',
     phone: ''
   },
-  addressStep: {
+  address: {
     zipCode: '',
-    publicPlace: '',
-    number: '',
+    streetName: '',
+    streetNumber: '' as unknown as number,
     complement: '',
-    district: '',
+    neighborhood: '',
     city: '',
     state: ''
   },
-  proprietaryStep: {
-    federalDocument: '',
+  owner: {
+    cpf: '',
     name: '',
-    birthDate: '',
+    bornDate: '',
     email: '',
     phone: '',
-    filesStorageRef: []
+    filesUrl: []
   },
-  paymentMethodsStep: {
+  billing: {
     bankName: '',
     accountType: '',
     agency: '',
     agencyDigit: '',
     account: '',
     accountDigit: '',
-    accountHolderFederalDocument: ''
+    holderCpfCnpj: ''
   }
 };

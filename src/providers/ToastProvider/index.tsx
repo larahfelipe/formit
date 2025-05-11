@@ -10,7 +10,7 @@ export const ToastProvider = () => {
       toastOptions={{
         duration: 5000,
         style: {
-          fontSize: fontSizes.md
+          fontSize: fontSizes.sm
         }
       }}
     />

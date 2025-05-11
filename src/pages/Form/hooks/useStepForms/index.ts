@@ -2,44 +2,44 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
 import {
-  AddressStepSchema,
-  EnterpriseStepSchema,
-  PaymentMethodsStepSchema,
-  ProprietaryStepSchema
-} from '@/common';
+  addressSchema,
+  billingSchema,
+  companySchema,
+  ownerSchema
+} from '@/common/schemas';
 import { useUserStore } from '@/store';
 
 export const useStepForms = () => {
-  const enterpriseStep = useUserStore((state) => state.enterpriseStep);
-  const addressStep = useUserStore((state) => state.addressStep);
-  const proprietaryStep = useUserStore((state) => state.proprietaryStep);
-  const paymentMethodsStep = useUserStore((state) => state.paymentMethodsStep);
+  const companyStep = useUserStore((state) => state.company);
+  const addressStep = useUserStore((state) => state.address);
+  const proprietaryStep = useUserStore((state) => state.owner);
+  const paymentMethodsStep = useUserStore((state) => state.billing);
 
-  const enterpriseStepMethods = useForm({
-    resolver: yupResolver(EnterpriseStepSchema),
-    defaultValues: { ...enterpriseStep },
+  const companyFormMethods = useForm({
+    resolver: yupResolver(companySchema),
+    defaultValues: { ...companyStep },
     mode: 'onChange'
   });
-  const addressStepMethods = useForm({
-    resolver: yupResolver(AddressStepSchema),
+  const addressFormMethods = useForm({
+    resolver: yupResolver(addressSchema),
     defaultValues: { ...addressStep },
     mode: 'onChange'
   });
-  const proprietaryStepMethods = useForm({
-    resolver: yupResolver(ProprietaryStepSchema),
+  const ownerFormMethods = useForm({
+    resolver: yupResolver(ownerSchema),
     defaultValues: { ...proprietaryStep },
     mode: 'onChange'
   });
-  const paymentMethodsStepMethods = useForm({
-    resolver: yupResolver(PaymentMethodsStepSchema),
+  const billingFormMethods = useForm({
+    resolver: yupResolver(billingSchema),
     defaultValues: { ...paymentMethodsStep },
     mode: 'onChange'
   });
 
   return {
-    enterpriseStepMethods,
-    addressStepMethods,
-    proprietaryStepMethods,
-    paymentMethodsStepMethods
+    companyFormMethods,
+    addressFormMethods,
+    ownerFormMethods,
+    billingFormMethods
   };
 };

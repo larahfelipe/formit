@@ -1,4 +1,4 @@
-export enum Steps {
+export enum StepsNum {
   FIRST,
   SECOND,
   THIRD,
@@ -6,16 +6,16 @@ export enum Steps {
 }
 
 export enum FormNames {
-  ENTERPRISE_STEP = 'enterpriseStep',
-  ADDRESS_STEP = 'addressStep',
-  PROPRIETARY_STEP = 'proprietaryStep',
-  PAYMENT_METHODS_STEP = 'paymentMethodsStep'
+  COMPANY_STEP = 'companyForm',
+  ADDRESS_STEP = 'addressForm',
+  OWNER_STEP = 'ownerForm',
+  BILLING_STEP = 'billingForm'
 }
 
 export type Step = {
   title: string;
   formName: FormNames;
-  formDataIsValid: boolean;
+  formIsValid: boolean;
   Element: (props: StepComponentProps) => JSX.Element;
 };
 
